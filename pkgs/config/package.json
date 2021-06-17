@@ -1,12 +1,9 @@
 {
-  "name": "@kitdm/pondgame.online",
+  "name": "@kitdm/pondgame.config",
   "version": "1.0.0",
-  "description": "It's a pond game. It's online.",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "pkgs/*"
-  ],
+  "description": "It's a pond game. It's config.",
+  "module": "dist/index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,16 +14,12 @@
   "keywords": [
     "pond",
     "game",
-    "online"
+    "config"
   ],
   "author": "Matt Hayes <matt@mysterycommand.com>",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/kindness-is-the-dankest-meme/pondgame.online/issues"
   },
-  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme",
-  "devDependencies": {
-    "@sinclair/hammer": "^0.12.1",
-    "typescript": "^4.3.3"
-  }
+  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme"
 }
