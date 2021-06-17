@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme",
   "dependencies": {
+    "@kitdm/pondgame.shared": "^1.0.0",
     "evt": "^1.9.14"
   }
 }
