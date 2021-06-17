@@ -8,6 +8,7 @@
     "pkgs/*"
   ],
   "scripts": {
+    "dev": "hammer task dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +28,10 @@
   "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme",
   "devDependencies": {
     "@sinclair/hammer": "^0.12.1",
+    "@types/node": "^15.12.2",
+    "@types/ws": "^7.4.4",
+    "esbuild": "^0.11.23",
+    "node-pre-gyp": "^0.17.0",
     "typescript": "^4.3.3"
   }
 }

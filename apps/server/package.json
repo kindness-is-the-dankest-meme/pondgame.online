@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "It's a pond game. It's a server.",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/kindness-is-the-dankest-meme/pondgame.online/issues"
   },
-  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme"
+  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme",
+  "dependencies": {
+    "evt": "^1.9.14",
+    "wrtc": "^0.4.7",
+    "ws": "^7.5.0"
+  }
 }
