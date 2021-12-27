@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/kindness-is-the-dankest-meme/pondgame.online/issues"
   },
-  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme"
+  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme",
+  "dependencies": {
+    "wrtc": "^0.4.7"
+  }
 }

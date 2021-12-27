@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/kindness-is-the-dankest-meme/pondgame.online/issues"
   },
-  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme"
+  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme",
+  "devDependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.8"
+  }
 }
