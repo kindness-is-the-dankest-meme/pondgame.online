@@ -2,7 +2,10 @@
   "name": "@kitdm/pondgame.webrtc",
   "version": "1.0.0",
   "description": "It's a pond game. It uses WebRTC.",
-  "main": "index.js",
+  "type": "module",
+  "exports": {
+    "*": "./dist/*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
