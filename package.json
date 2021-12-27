@@ -2,7 +2,16 @@
   "name": "pondgame.online",
   "version": "1.0.0",
   "description": "It's a pond game. It's online.",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": "16",
+    "npm": "8"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
