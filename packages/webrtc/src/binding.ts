@@ -2,8 +2,8 @@ import { createRequire } from "module";
 import { resolve } from "path";
 
 /**
- * I prefer to keep `"type": "module"` in the `package.json` file, but the
- * `require` semantics are required for loading Node addons
+ * I prefer to keep `"type": "module"` in the `package.json` file, but we need
+ * `require` semantics for loading addons
  *
  * @see https://stackoverflow.com/a/66527729/1577876
  */
