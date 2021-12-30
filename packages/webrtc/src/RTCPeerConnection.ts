@@ -2,16 +2,6 @@ import { NativeRTCPeerConnection } from "./binding.js";
 import { propsOf } from "./util.js";
 
 /**
- * `EventTarget` properties
- */
-const eventTargetProps = propsOf(EventTarget);
-
-const isEventTargetProp = (
-  property: string | symbol
-): property is keyof EventTarget =>
-  typeof property === "string" && eventTargetProps.includes(property);
-
-/**
  * `RTCPeerConnection` properties
  */
 const rtcPeerConnectionProps = propsOf(NativeRTCPeerConnection, [
@@ -42,26 +32,26 @@ const eventTypes = [
   "track",
 ];
 
-export class RTCPeerConnection {
+export class RTCPeerConnection extends EventTarget {
   constructor(configuration?: RTCConfiguration) {
-    const rtcPeerConnection = new NativeRTCPeerConnection(configuration);
-    const eventTarget = new EventTarget();
+    super();
 
-    eventTypes.forEach((eventType) => {
-      rtcPeerConnection[`on${eventType}`] = () => {};
-    });
+    const rtcPeerConnection = new NativeRTCPeerConnection(configuration);
+    // eventTypes.forEach((eventType) => {
+    //   rtcPeerConnection[`on${eventType}`] = ({ type }: Event) => {
+    //     console.log({ type });
+    //   };
+    // });
+    console.log({ rtcPeerConnection });
+    rtcPeerConnection.onnegotiationneeded = ({ type }: Event) => {
+      console.log({ type });
+    };
 
     return new Proxy(this, {
       get(target, property, receiver) {
-        if (isRTCPeerConnectionProp(property)) {
-          return rtcPeerConnection[property];
-        }
-
-        if (isEventTargetProp(property)) {
-          return eventTarget[property];
-        }
-
-        return Reflect.get(target, property, receiver);
+        return isRTCPeerConnectionProp(property)
+          ? rtcPeerConnection[property]
+          : Reflect.get(target, property, receiver);
       },
       set(target, property, value, receiver) {
         if (
@@ -71,14 +61,11 @@ export class RTCPeerConnection {
         ) {
           const prevListener = Reflect.get(target, property);
           if (prevListener !== null) {
-            eventTarget.removeEventListener(
-              property.substring(2),
-              prevListener
-            );
+            target.removeEventListener(property.substring(2), prevListener);
           }
 
           if (typeof value === "function") {
-            eventTarget.addEventListener(property.substring(2), value);
+            target.addEventListener(property.substring(2), value);
           }
         }
 
@@ -87,3 +74,25 @@ export class RTCPeerConnection {
     });
   }
 }
+
+const rtcp = new RTCPeerConnection({
+  iceServers: [
+    {
+      urls: [
+        "stun:stun.l.google.com:19302",
+        "stun:global.stun.twilio.com:3478",
+      ],
+    },
+  ],
+});
+
+//@ts-expect-error - will type this up later
+rtcp.onnegotiationneeded = ({ type }: Event) => {
+  console.log({ type });
+};
+rtcp.addEventListener("negotiationneeded", ({ type }: Event) => {
+  console.log({ type });
+});
+
+//@ts-expect-error - will type this up later
+console.log({ rtcp, connectionState: rtcp.connectionState });

@@ -13,5 +13,3 @@ export const {
 } = createRequire(resolve(process.cwd(), "node_modules"))(
   "wrtc/build/Release/wrtc.node"
 );
-
-console.log(Object.getOwnPropertyDescriptors(NativeRTCDataChannel.prototype));
