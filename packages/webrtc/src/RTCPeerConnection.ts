@@ -379,9 +379,9 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     label: string,
     dataChannelDict?: RTCDataChannelInit
   ): RTCDataChannel {
-    return this.#nativeRTCPeerConnection.createDataChannel(
-      label,
-      dataChannelDict
+    return this.#nativeRTCPeerConnection.createDataChannel.apply(
+      this.#nativeRTCPeerConnection,
+      [label, dataChannelDict]
     );
   }
 
