@@ -1,1 +1,1 @@
-export { RTCPeerConnection } from "./RTCPeerConnection";
+export { RTCPeerConnection } from "./RTCPeerConnection.js";

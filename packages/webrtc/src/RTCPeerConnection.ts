@@ -1,5 +1,5 @@
-import { NativeRTCPeerConnection } from "./binding";
-import { propsOf } from "./util";
+import { NativeRTCPeerConnection } from "./binding.js";
+import { propsOf } from "./util.js";
 
 /**
  * `EventTarget` properties

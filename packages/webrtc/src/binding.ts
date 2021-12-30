@@ -7,6 +7,11 @@ import { resolve } from "path";
  *
  * @see https://stackoverflow.com/a/66527729/1577876
  */
-export const { RTCPeerConnection: NativeRTCPeerConnection } = createRequire(
-  resolve(process.cwd(), "node_modules")
-)("wrtc/build/Release/wrtc.node");
+export const {
+  RTCPeerConnection: NativeRTCPeerConnection,
+  RTCDataChannel: NativeRTCDataChannel,
+} = createRequire(resolve(process.cwd(), "node_modules"))(
+  "wrtc/build/Release/wrtc.node"
+);
+
+console.log(Object.getOwnPropertyDescriptors(NativeRTCDataChannel.prototype));
