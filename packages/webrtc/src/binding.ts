@@ -7,9 +7,18 @@ import { resolve } from "path";
  *
  * @see https://stackoverflow.com/a/66527729/1577876
  */
+let wrtc;
+try {
+  wrtc = createRequire(resolve(process.cwd(), "node_modules"))(
+    "wrtc/build/Debug/wrtc.node"
+  );
+} catch (e) {
+  wrtc = createRequire(resolve(process.cwd(), "node_modules"))(
+    "wrtc/build/Release/wrtc.node"
+  );
+}
+
 export const {
   RTCPeerConnection: NativeRTCPeerConnection,
   RTCDataChannel: NativeRTCDataChannel,
-} = createRequire(resolve(process.cwd(), "node_modules"))(
-  "wrtc/build/Release/wrtc.node"
-);
+} = wrtc;
