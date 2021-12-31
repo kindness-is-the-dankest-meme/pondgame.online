@@ -1,6 +1,6 @@
 export class RTCTrackEvent extends Event {
   readonly receiver: RTCRtpReceiver;
-  readonly streams?: MediaStream[];
+  readonly streams?: ReadonlyArray<MediaStream>;
   readonly track: MediaStreamTrack;
   readonly transceiver: RTCRtpTransceiver;
 
