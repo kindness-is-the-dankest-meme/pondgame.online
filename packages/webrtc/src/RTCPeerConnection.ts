@@ -336,6 +336,10 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     return this.#nativeRTCPeerConnection.setRemoteDescription(description);
   }
 
+  /**
+   * override `dispatchEvent` to make sure we also call any event listeners
+   * registered via `on${event.type}` callbacks
+   */
   dispatchEvent(
     event:
       | Event

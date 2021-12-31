@@ -18,7 +18,5 @@ try {
   );
 }
 
-export const {
-  RTCPeerConnection: NativeRTCPeerConnection,
-  RTCDataChannel: NativeRTCDataChannel,
-} = wrtc;
+export const { RTCPeerConnection: NativeRTCPeerConnection, RTCDataChannel } =
+  wrtc;
