@@ -33,8 +33,7 @@ RTCDataChannel.prototype.dispatchEvent = function dispatchEvent(
     this[`on${event.type}`]?.(
       /**
        * `event as RTCDataChannelEventMap[event.type]` seems like what I
-       * want, but it winds up creating an `Event & RTCDataChannelEvent &
-       * RTCDataChannelIceEvent & RTCTrackEvent` type
+       * want, but it winds up creating an `Event & MessageEvent` type
        */
       event as any
     );
