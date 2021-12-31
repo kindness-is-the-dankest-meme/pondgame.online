@@ -1,4 +1,24 @@
 import { NativeRTCPeerConnection } from "./binding.js";
+import { RTCDataChannelEvent } from "./RTCDataChannelEvent.js";
+import { RTCIceCandidate } from "./RTCIceCandidate.js";
+import { RTCPeerConnectionIceErrorEvent } from "./RTCPeerConnectionIceErrorEvent.js";
+import { RTCTrackEvent } from "./RTCTrackEvent.js";
+
+/**
+ * this seems to need to be here to override the `lib.dom.d.ts` version, for
+ * some reason the `RTCTrackEvent` types are incompatible (maybe others)
+ */
+interface RTCPeerConnectionEventMap {
+  connectionstatechange: Event;
+  datachannel: RTCDataChannelEvent;
+  icecandidate: RTCPeerConnectionIceEvent;
+  icecandidateerror: Event;
+  iceconnectionstatechange: Event;
+  icegatheringstatechange: Event;
+  negotiationneeded: Event;
+  signalingstatechange: Event;
+  track: RTCTrackEvent;
+}
 
 /**
  * hacky, but it works
@@ -10,7 +30,7 @@ interface RTCPeerConnectionEventTarget extends EventTarget {
     type: K,
     listener: (
       this: RTCPeerConnection,
-      ev: RTCPeerConnectionEventMap[K]
+      event: RTCPeerConnectionEventMap[K]
     ) => any,
     options?: boolean | AddEventListenerOptions
   ): void;
@@ -18,7 +38,7 @@ interface RTCPeerConnectionEventTarget extends EventTarget {
     type: K,
     listener: (
       this: RTCPeerConnection,
-      ev: RTCPeerConnectionEventMap[K]
+      event: RTCPeerConnectionEventMap[K]
     ) => any,
     options?: boolean | EventListenerOptions
   ): void;
@@ -92,56 +112,86 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
 
     this.#nativeRTCPeerConnection = new NativeRTCPeerConnection(configuration);
 
-    // onconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    this.#nativeRTCPeerConnection.onconnectionstatechange = (event: Event) =>
-      this.dispatchEvent(event);
+    // onconnectionstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
+    this.#nativeRTCPeerConnection.onconnectionstatechange = () =>
+      this.dispatchEvent(new Event("connectionstatechange"));
 
-    // ondatachannel: ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any) | null;
-    this.#nativeRTCPeerConnection.ondatachannel = (
-      event: RTCDataChannelEvent
-    ) => this.dispatchEvent(event);
+    // ondatachannel: ((this: RTCPeerConnection, event: RTCDataChannelEvent) => any) | null;
+    this.#nativeRTCPeerConnection.ondatachannel = (channel: RTCDataChannel) =>
+      this.dispatchEvent(new RTCDataChannelEvent("datachannel", { channel }));
 
-    // onicecandidate: ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any) | null;
+    // onicecandidate: ((this: RTCPeerConnection, event: RTCPeerConnectionIceEvent) => any) | null;
     this.#nativeRTCPeerConnection.onicecandidate = (
-      event: RTCPeerConnectionIceEvent
-    ) => this.dispatchEvent(event);
+      partialCandidate: Partial<RTCIceCandidate>
+    ) =>
+      this.dispatchEvent(
+        new RTCPeerConnectionIceEvent("icecandidate", {
+          candidate: new RTCIceCandidate(partialCandidate),
+        })
+      );
 
-    // onicecandidateerror: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    this.#nativeRTCPeerConnection.onicecandidateerror = (event: Event) =>
-      this.dispatchEvent(event);
+    // onicecandidateerror: ((this: RTCPeerConnection, event: Event) => any) | null;
+    this.#nativeRTCPeerConnection.onicecandidateerror = (
+      eventInit: Omit<
+        RTCPeerConnectionIceErrorEventInit,
+        "address" | "port"
+      > & { hostCandidate: string }
+    ) => {
+      const { hostCandidate, errorCode, errorText, url } = eventInit;
+      const [address, port] = hostCandidate.split(":");
 
-    // oniceconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+      this.dispatchEvent(
+        new RTCPeerConnectionIceErrorEvent("icecandidateerror", {
+          address,
+          errorCode,
+          errorText,
+          port: port ? parseInt(port, 10) : null,
+          url,
+        })
+      );
+    };
+
+    // oniceconnectionstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
     this.#nativeRTCPeerConnection.oniceconnectionstatechange = (event: Event) =>
-      this.dispatchEvent(event);
+      this.dispatchEvent(new Event("iceconnectionstatechange"));
 
-    // onicegatheringstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    // onicegatheringstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
     this.#nativeRTCPeerConnection.onicegatheringstatechange = (event: Event) =>
-      this.dispatchEvent(event);
+      this.dispatchEvent(new Event("icegatheringstatechange"));
 
-    // onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    this.#nativeRTCPeerConnection.onnegotiationneeded = (event: Event) =>
-      this.dispatchEvent(event);
+    // onnegotiationneeded: ((this: RTCPeerConnection, event: Event) => any) | null;
+    this.#nativeRTCPeerConnection.onnegotiationneeded = () =>
+      this.dispatchEvent(new Event("negotiationneeded"));
 
-    // onsignalingstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    this.#nativeRTCPeerConnection.onsignalingstatechange = (event: Event) =>
-      this.dispatchEvent(event);
+    // onsignalingstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
+    this.#nativeRTCPeerConnection.onsignalingstatechange = () =>
+      this.dispatchEvent(new Event("signalingstatechange"));
 
-    // ontrack: ((this: RTCPeerConnection, ev: RTCTrackEvent) => any) | null;
-    this.#nativeRTCPeerConnection.ontrack = (event: RTCTrackEvent) =>
-      this.dispatchEvent(event);
+    // ontrack: ((this: RTCPeerConnection, event: RTCTrackEvent) => any) | null;
+    this.#nativeRTCPeerConnection.ontrack = (
+      receiver: RTCRtpReceiver,
+      streams: MediaStream[],
+      transceiver: RTCRtpTransceiver
+    ) => {
+      const { track } = receiver;
+
+      this.dispatchEvent(
+        new RTCTrackEvent("track", { receiver, streams, track, transceiver })
+      );
+    };
   }
 
-  // onconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+  // onconnectionstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
   #onconnectionstatechange:
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null = null;
   get onconnectionstatechange():
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null {
     return this.#onconnectionstatechange;
   }
   set onconnectionstatechange(
-    listener: ((this: RTCPeerConnection, ev: Event) => any) | null
+    listener: ((this: RTCPeerConnection, event: Event) => any) | null
   ) {
     if (this.#onconnectionstatechange !== null) {
       this.removeEventListener(
@@ -157,17 +207,19 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#onconnectionstatechange = listener;
   }
 
-  // ondatachannel: ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any) | null;
+  // ondatachannel: ((this: RTCPeerConnection, event: RTCDataChannelEvent) => any) | null;
   #ondatachannel:
-    | ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any)
+    | ((this: RTCPeerConnection, event: RTCDataChannelEvent) => any)
     | null = null;
   get ondatachannel():
-    | ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any)
+    | ((this: RTCPeerConnection, event: RTCDataChannelEvent) => any)
     | null {
     return this.#ondatachannel;
   }
   set ondatachannel(
-    listener: ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any) | null
+    listener:
+      | ((this: RTCPeerConnection, event: RTCDataChannelEvent) => any)
+      | null
   ) {
     if (this.#ondatachannel !== null) {
       this.removeEventListener("datachannel", this.#ondatachannel);
@@ -180,18 +232,18 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#ondatachannel = listener;
   }
 
-  // onicecandidate: ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any) | null;
+  // onicecandidate: ((this: RTCPeerConnection, event: RTCPeerConnectionIceEvent) => any) | null;
   #onicecandidate:
-    | ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any)
+    | ((this: RTCPeerConnection, event: RTCPeerConnectionIceEvent) => any)
     | null = null;
   get onicecandidate():
-    | ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any)
+    | ((this: RTCPeerConnection, event: RTCPeerConnectionIceEvent) => any)
     | null {
     return this.#onicecandidate;
   }
   set onicecandidate(
     listener:
-      | ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any)
+      | ((this: RTCPeerConnection, event: RTCPeerConnectionIceEvent) => any)
       | null
   ) {
     if (this.#onicecandidate !== null) {
@@ -205,16 +257,17 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#onicecandidate = listener;
   }
 
-  // onicecandidateerror: ((this: RTCPeerConnection, ev: Event) => any) | null;
-  #onicecandidateerror: ((this: RTCPeerConnection, ev: Event) => any) | null =
-    null;
+  // onicecandidateerror: ((this: RTCPeerConnection, event: Event) => any) | null;
+  #onicecandidateerror:
+    | ((this: RTCPeerConnection, event: Event) => any)
+    | null = null;
   get onicecandidateerror():
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null {
     return this.#onicecandidateerror;
   }
   set onicecandidateerror(
-    listener: ((this: RTCPeerConnection, ev: Event) => any) | null
+    listener: ((this: RTCPeerConnection, event: Event) => any) | null
   ) {
     if (this.#onicecandidateerror !== null) {
       this.removeEventListener("icecandidateerror", this.#onicecandidateerror);
@@ -227,17 +280,17 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#onicecandidateerror = listener;
   }
 
-  // oniceconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+  // oniceconnectionstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
   #oniceconnectionstatechange:
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null = null;
   get oniceconnectionstatechange():
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null {
     return this.#oniceconnectionstatechange;
   }
   set oniceconnectionstatechange(
-    listener: ((this: RTCPeerConnection, ev: Event) => any) | null
+    listener: ((this: RTCPeerConnection, event: Event) => any) | null
   ) {
     if (this.#oniceconnectionstatechange !== null) {
       this.removeEventListener(
@@ -253,17 +306,17 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#oniceconnectionstatechange = listener;
   }
 
-  // onicegatheringstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+  // onicegatheringstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
   #onicegatheringstatechange:
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null = null;
   get onicegatheringstatechange():
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null {
     return this.#onicegatheringstatechange;
   }
   set onicegatheringstatechange(
-    listener: ((this: RTCPeerConnection, ev: Event) => any) | null
+    listener: ((this: RTCPeerConnection, event: Event) => any) | null
   ) {
     if (this.#onicegatheringstatechange !== null) {
       this.removeEventListener(
@@ -279,16 +332,17 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#onicegatheringstatechange = listener;
   }
 
-  // onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null;
-  #onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null =
-    null;
+  // onnegotiationneeded: ((this: RTCPeerConnection, event: Event) => any) | null;
+  #onnegotiationneeded:
+    | ((this: RTCPeerConnection, event: Event) => any)
+    | null = null;
   get onnegotiationneeded():
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null {
     return this.#onnegotiationneeded;
   }
   set onnegotiationneeded(
-    listener: ((this: RTCPeerConnection, ev: Event) => any) | null
+    listener: ((this: RTCPeerConnection, event: Event) => any) | null
   ) {
     if (this.#onnegotiationneeded !== null) {
       this.removeEventListener("negotiationneeded", this.#onnegotiationneeded);
@@ -301,17 +355,17 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#onnegotiationneeded = listener;
   }
 
-  // onsignalingstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+  // onsignalingstatechange: ((this: RTCPeerConnection, event: Event) => any) | null;
   #onsignalingstatechange:
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null = null;
   get onsignalingstatechange():
-    | ((this: RTCPeerConnection, ev: Event) => any)
+    | ((this: RTCPeerConnection, event: Event) => any)
     | null {
     return this.#onsignalingstatechange;
   }
   set onsignalingstatechange(
-    listener: ((this: RTCPeerConnection, ev: Event) => any) | null
+    listener: ((this: RTCPeerConnection, event: Event) => any) | null
   ) {
     if (this.#onsignalingstatechange !== null) {
       this.removeEventListener(
@@ -327,13 +381,16 @@ export class RTCPeerConnection extends RTCPeerConnectionEventTarget {
     this.#onsignalingstatechange = listener;
   }
 
-  // ontrack: ((this: RTCPeerConnection, ev: RTCTrackEvent) => any) | null;
-  #ontrack: ((this: RTCPeerConnection, ev: RTCTrackEvent) => any) | null = null;
-  get ontrack(): ((this: RTCPeerConnection, ev: RTCTrackEvent) => any) | null {
+  // ontrack: ((this: RTCPeerConnection, event: RTCTrackEvent) => any) | null;
+  #ontrack: ((this: RTCPeerConnection, event: RTCTrackEvent) => any) | null =
+    null;
+  get ontrack():
+    | ((this: RTCPeerConnection, event: RTCTrackEvent) => any)
+    | null {
     return this.#ontrack;
   }
   set ontrack(
-    listener: ((this: RTCPeerConnection, ev: RTCTrackEvent) => any) | null
+    listener: ((this: RTCPeerConnection, event: RTCTrackEvent) => any) | null
   ) {
     if (this.#ontrack !== null) {
       this.removeEventListener("track", this.#ontrack);
@@ -461,5 +518,5 @@ rtcp.onnegotiationneeded = () => {
 };
 
 rtcp.addEventListener("negotiationneeded", () => {
-  console.log("rtcp.onnegotiationneeded");
+  console.log("rtcp.addEventListener");
 });
