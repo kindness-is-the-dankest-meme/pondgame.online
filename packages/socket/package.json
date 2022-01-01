@@ -1,0 +1,25 @@
+{
+  "name": "@kitdm/pondgame.socket",
+  "version": "1.0.0",
+  "description": "It's a pond game. It uses WebSockets.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kindness-is-the-dankest-meme/pondgame.online.git"
+  },
+  "keywords": [
+    "pond",
+    "game",
+    "socket"
+  ],
+  "author": "Matt Hayes <matt@mysterycommand.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kindness-is-the-dankest-meme/pondgame.online/issues"
+  },
+  "homepage": "https://github.com/kindness-is-the-dankest-meme/pondgame.online#readme"
+}
