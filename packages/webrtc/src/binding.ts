@@ -18,7 +18,9 @@ try {
   );
 }
 
-export const { RTCPeerConnection: NativeRTCPeerConnection, RTCDataChannel } =
-  wrtc;
+export const {
+  RTCPeerConnection: NativeRTCPeerConnection,
+  RTCDataChannel: NativeRTCDataChannel,
+} = wrtc;
 
 // console.log(Object.getOwnPropertyDescriptors(wrtc));

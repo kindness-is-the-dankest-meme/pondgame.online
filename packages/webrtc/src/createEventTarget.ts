@@ -1,3 +1,8 @@
+interface AnyConstructor {
+  prototype: any;
+  new (...args: any[]): any;
+}
+
 interface EventMap {
   [eventType: string]: Event;
 }
@@ -6,15 +11,15 @@ type EventFactory<T extends EventMap> = {
   [K in keyof T]: (...args: any[]) => T[K];
 };
 
-type WithOnCallbacks<T extends EventMap> = {
-  [K in keyof T as `on${string &
-    K}`]: EventListenerOrEventListenerObject | null;
+type TWithOnCallbacks<T extends AnyConstructor, U extends EventMap> = {
+  [K in keyof U as `on${string & K}`]: ((this: T, event: U[K]) => void) | null;
 };
 
-interface IEventTarget<T extends EventMap, U> extends EventTarget {
-  addEventListener<K extends keyof T>(
+interface IEventTarget<T extends AnyConstructor, U extends EventMap>
+  extends EventTarget {
+  addEventListener<K extends keyof U>(
     type: K,
-    listener: (this: U, event: T[K]) => void,
+    callback: (this: T, event: U[K]) => void,
     options?: AddEventListenerOptions | boolean
   ): void;
   addEventListener(
@@ -23,9 +28,9 @@ interface IEventTarget<T extends EventMap, U> extends EventTarget {
     options?: AddEventListenerOptions | boolean
   ): void;
 
-  removeEventListener<K extends keyof T>(
+  removeEventListener<K extends keyof U>(
     type: K,
-    listener: (this: U, event: T[K]) => void,
+    callback: (this: T, event: U[K]) => void,
     options?: EventListenerOptions | boolean
   ): void;
   removeEventListener(
@@ -35,15 +40,10 @@ interface IEventTarget<T extends EventMap, U> extends EventTarget {
   ): void;
 }
 
-export const createEventTarget = <
-  T extends EventMap,
-  U extends {
-    new (...args: any[]): any;
-  }
->(
-  Constructor: U,
-  eventFactory: EventFactory<T>
-): U & IEventTarget<T, U> & WithOnCallbacks<T> => {
+export const createEventTarget = <T extends AnyConstructor, U extends EventMap>(
+  Constructor: T,
+  eventFactory: EventFactory<U>
+): T => {
   const wrapped = Symbol();
 
   const TEventTarget = EventTarget as {
@@ -51,6 +51,7 @@ export const createEventTarget = <
     new (): IEventTarget<T, U>;
   };
 
+  console.log(Constructor.name);
   console.log(Object.getOwnPropertyDescriptors(Constructor.prototype));
   const { getters, methods } = Object.entries(
     Object.getOwnPropertyDescriptors(Constructor.prototype)
@@ -82,7 +83,7 @@ export const createEventTarget = <
   class UEventTarget extends TEventTarget {
     [wrapped]: typeof Constructor;
 
-    constructor(...args: ConstructorParameters<U>) {
+    constructor(...args: ConstructorParameters<T>) {
       super();
 
       const base = (this[wrapped] = new Constructor(...args));
@@ -107,7 +108,7 @@ export const createEventTarget = <
       );
     }
 
-    dispatchEvent<K extends keyof T>(event: T[K]) {
+    dispatchEvent<K extends keyof U>(event: U[K]) {
       // @ts-expect-error - not sure how to type this
       if (typeof this[`on${event.type}`] === "function") {
         // @ts-expect-error - not sure how to type this
@@ -118,6 +119,7 @@ export const createEventTarget = <
     }
   }
 
+  Object.defineProperty(UEventTarget, "name", { value: Constructor.name });
   Object.defineProperties(
     UEventTarget.prototype,
     methods.reduce<{ [name: string]: PropertyDescriptor }>(
@@ -135,5 +137,5 @@ export const createEventTarget = <
     )
   );
 
-  return UEventTarget as U & IEventTarget<T, U> & WithOnCallbacks<T>;
+  return UEventTarget as T;
 };
