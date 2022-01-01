@@ -2,9 +2,12 @@
   "name": "@kitdm/pondgame.socket",
   "version": "1.0.0",
   "description": "It's a pond game. It uses WebSockets.",
-  "main": "index.js",
-  "devDependencies": {},
+  "type": "module",
+  "exports": {
+    "*": "./dist/*"
+  },
   "scripts": {
+    "build": "tsc -b",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
