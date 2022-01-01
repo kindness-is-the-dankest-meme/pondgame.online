@@ -20,3 +20,5 @@ try {
 
 export const { RTCPeerConnection: NativeRTCPeerConnection, RTCDataChannel } =
   wrtc;
+
+// console.log(Object.getOwnPropertyDescriptors(wrtc));

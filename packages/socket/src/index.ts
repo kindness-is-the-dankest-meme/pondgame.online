@@ -1,1 +1,1 @@
-export {};
+export { WebSocketServer } from "./WebSocketServer";
