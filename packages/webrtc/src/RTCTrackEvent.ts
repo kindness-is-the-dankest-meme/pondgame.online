@@ -1,6 +1,6 @@
 export class RTCTrackEvent extends Event {
   readonly receiver: RTCRtpReceiver;
-  readonly streams?: ReadonlyArray<MediaStream>;
+  readonly streams: ReadonlyArray<MediaStream>;
   readonly track: MediaStreamTrack;
   readonly transceiver: RTCRtpTransceiver;
 
@@ -22,7 +22,7 @@ export class RTCTrackEvent extends Event {
     });
 
     this.receiver = receiver;
-    this.streams = streams;
+    this.streams = streams ?? [];
     this.track = track;
     this.transceiver = transceiver;
   }
