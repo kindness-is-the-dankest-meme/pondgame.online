@@ -1,4 +1,4 @@
-import { NativeRTCDataChannel, NativeRTCPeerConnection } from "./binding.js";
+import { NativeRTCPeerConnection } from "./binding.js";
 import { RTCDataChannelEvent } from "./RTCDataChannelEvent.js";
 import { RTCIceCandidate } from "./RTCIceCandidate.js";
 import { RTCPeerConnectionIceErrorEvent } from "./RTCPeerConnectionIceErrorEvent.js";
@@ -95,14 +95,14 @@ type EventFactoryMap<T extends EventMap> = {
   [K in keyof T]: (...args: any[]) => T[K];
 };
 
-const wrapWithEventable = <T extends AnyConstructor, U extends EventMap>(
-  Wrappee: T,
+const wrapConstructor = <T extends AnyConstructor, U extends EventMap>(
+  Constructor: T,
   eventFactoryMap: EventFactoryMap<U>
 ): T & IEventable => {
   const Eventable = createEventable();
 
   const { constructor: _Wrappee, ...wrappeeDescriptorMap } =
-    Object.getOwnPropertyDescriptors(Wrappee.prototype);
+    Object.getOwnPropertyDescriptors(Constructor.prototype);
 
   const accessorDescriptors = Object.entries(wrappeeDescriptorMap).filter(
     ([, descriptor]) => "get" in descriptor && "set" in descriptor
@@ -120,12 +120,15 @@ const wrapWithEventable = <T extends AnyConstructor, U extends EventMap>(
     [kWrapped]: T;
 
     constructor(...args: ConstructorParameters<T>) {
-      const wrapped = (this[kWrapped] = new Wrappee(...args));
+      const wrapped = (this[kWrapped] = new Constructor(...args));
 
       Object.entries(eventFactoryMap).forEach(([eventType, eventFactory]) => {
-        wrapped[`on${eventType}`] = (...args: any[]) =>
-          // @ts-expect-error
+        wrapped[`on${eventType}`] = function (
+          this: IEventable,
+          ...args: any[]
+        ) {
           this.dispatchEvent(eventFactory(...args));
+        };
       });
 
       Object.defineProperties(
@@ -137,7 +140,7 @@ const wrapWithEventable = <T extends AnyConstructor, U extends EventMap>(
               enumerable,
               get: get ? () => wrapped[name] : undefined,
               set: set
-                ? (value: typeof Wrappee[typeof name]) =>
+                ? (value: typeof Constructor[typeof name]) =>
                     (wrapped[name] = value)
                 : undefined,
             };
@@ -151,7 +154,7 @@ const wrapWithEventable = <T extends AnyConstructor, U extends EventMap>(
   }
 
   Object.setPrototypeOf(Wrapped.prototype, Eventable.prototype);
-  Object.defineProperty(Wrapped, "name", { value: Wrappee.name });
+  Object.defineProperty(Wrapped, "name", { value: Constructor.name });
   Object.defineProperties(
     Wrapped.prototype,
     methodDescriptors.reduce<PropertyDescriptorMap>(
@@ -174,7 +177,7 @@ const wrapWithEventable = <T extends AnyConstructor, U extends EventMap>(
   return Wrapped as T & IEventable;
 };
 
-const RTCPeerConnection = wrapWithEventable<
+const RTCPeerConnection = wrapConstructor<
   typeof globalThis.RTCPeerConnection,
   globalThis.RTCPeerConnectionEventMap & {
     [eventType: string]: Event;
@@ -227,24 +230,83 @@ const wrapInstance = <T extends any, U extends EventMap>(
   instance: T,
   eventFactoryMap: EventFactoryMap<U>
 ): T & IEventable => {
+  const Constructor = Object.getPrototypeOf(instance).constructor;
   const Eventable = createEventable();
+
+  const { constructor: _Wrappee, ...wrappeeDescriptorMap } =
+    Object.getOwnPropertyDescriptors(Constructor.prototype);
+
+  const accessorDescriptors = Object.entries(wrappeeDescriptorMap).filter(
+    ([, descriptor]) => "get" in descriptor && "set" in descriptor
+  );
+
+  const methodDescriptors = Object.entries(wrappeeDescriptorMap).filter(
+    ([, descriptor]) =>
+      "value" in descriptor &&
+      "writable" in descriptor &&
+      typeof descriptor.value === "function"
+  );
+
+  const kWrapped = Symbol("kWrapped");
   class Wrapped {
+    [kWrapped]: typeof Constructor;
+
     constructor() {
+      const wrapped: typeof Constructor = (this[kWrapped] = instance);
+
       Object.entries(eventFactoryMap).forEach(([eventType, eventFactory]) => {
-        // @ts-expect-error
-        instance[`on${eventType}`] = (...args: any[]) =>
-          // @ts-expect-error
+        wrapped[`on${eventType}`] = function (
+          this: IEventable,
+          ...args: any[]
+        ) {
           this.dispatchEvent(eventFactory(...args));
+        };
       });
+
+      Object.defineProperties(
+        this,
+        accessorDescriptors.reduce<PropertyDescriptorMap>(
+          (descriptorMap, [name, { configurable, enumerable, get, set }]) => {
+            descriptorMap[name] = {
+              configurable,
+              enumerable,
+              get: get ? () => wrapped[name] : undefined,
+              set: set
+                ? (value: typeof Constructor[typeof name]) =>
+                    (wrapped[name] = value)
+                : undefined,
+            };
+
+            return descriptorMap;
+          },
+          {}
+        )
+      );
     }
   }
 
   Object.setPrototypeOf(Wrapped.prototype, Eventable.prototype);
-  Object.defineProperty(Wrapped, "name", {
-    value: Object.getPrototypeOf(instance).constructor.name,
-  });
+  Object.defineProperty(Wrapped, "name", { value: Constructor.name });
+  Object.defineProperties(
+    Wrapped.prototype,
+    methodDescriptors.reduce<PropertyDescriptorMap>(
+      (descriptorMap, [name, { configurable, enumerable, writable }]) => {
+        descriptorMap[name] = {
+          configurable: true,
+          enumerable,
+          value: function (this: Wrapped, ...args: any[]) {
+            return this[kWrapped][name](...args);
+          },
+          writable,
+        };
 
-  return new Wrapped() as T & IEventable;
+        return descriptorMap;
+      },
+      {}
+    )
+  );
+
+  return new Wrapped() as unknown as T & IEventable;
 };
 
 const createDataChannelDescriptor = Object.getOwnPropertyDescriptor(
@@ -280,6 +342,7 @@ const channel = rtcp.createDataChannel("test");
 channel.onopen = () => console.log("channel.onopen");
 channel.addEventListener("open", () => console.log("channel.addEventListener"));
 channel.dispatchEvent(new Event("open"));
+console.log(channel.label);
 
 rtcp.onnegotiationneeded = () => console.log("rtcp.onnegotiationneeded");
 rtcp.addEventListener("negotiationneeded", () =>
