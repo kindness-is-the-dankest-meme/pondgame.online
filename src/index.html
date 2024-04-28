@@ -4,9 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello</title>
+
+    <style>
+      html,
+      body,
+      main {
+        height: 100%;
+      }
+
+      :root {
+        /**
+         * vector outlined "big pointer" from the excellent Kenney Cursor Pack
+         *
+         * @see https://www.kenney.nl/assets/cursor-pack
+         * @see kenney_cursor-pack/Vector/Outline/pointer_c.svg
+         */
+        --pointer: url(data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%3E%3Cpath%20d%3D%22M12.45%2023.1%208.3%2028.25l-.1.2-.35.55-.8.55Q6.1%2030.1%205%2030l-.2-.05q-.9-.2-1.65-.75l-.6-.7-.1-.2-.35-.8-.1-.85V5.5l.1-.95.15-.5.3-.6q.25-.5.8-.8l.65-.4.45-.15.95-.1.95.1.25.1%201.1.75L22.65%2016.2l.2.2.2.2.55.75.4%201.35v1.1l-.2.55v-.05l-.35.8-.55.7-.25.15-.85.45-1%20.25h-7.9l-.05.05zl-.1.05h.05zM4.35%204.35l-.3.6L4%205.5v21.15l.05.45.3.5q.4.3.85.4.5.05.95-.25l.25-.2.2-.4%204.35-5.45.3-.25.15-.2q.3-.3.7-.45l.8-.15h7.9l.2-.1.45-.2.4-.45.15-.45v-.6l-.15-.4-.25-.45-.15-.05-.15-.25L6.25%204.35l-.4-.3L5.4%204l-.5.05z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%20d%3D%22m4.35%204.35.55-.3.5-.05.45.05.4.3L21.3%2017.7l.15.25.15.05.25.45.15.4v.6l-.15.45-.4.45-.45.2-.2.1h-7.9l-.8.15q-.4.15-.7.45l-.15.2-.3.25-4.35%205.45-.2.4-.25.2q-.45.3-.95.25-.45-.1-.85-.4l-.3-.5-.05-.45V5.5l.05-.55z%22%2F%3E%3C%2Fsvg%3E);
+      }
+
+      body {
+        cursor: var(--pointer) 5 5, auto;
+      }
+
+      body,
+      h1 {
+        margin: 0;
+      }
+
+      /*
+      div {
+        background: var(--pointer);
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        display: block;
+        width: 32px;
+        height: 32px;
+      }
+      */
+    </style>
   </head>
   <body>
-    <main>Hello</main>
+    <main>
+      <h1>Hello</h1>
+      <!-- <div id="c" title="cursor" /> -->
+    </main>
     <script type="module" src="./client.js" async></script>
   </body>
 </html>
