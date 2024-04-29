@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "std/": "https://deno.land/std@0.223.0/",
+    "emit": "https://deno.land/x/emit@0.40.0/mod.ts",
+    "immer": "https://esm.sh/immer@10.1.1"
+  }
+}
