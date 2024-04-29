@@ -176,6 +176,8 @@
     "https://deno.land/std@0.223.0/version.ts": "a25bd16c3b9f0d2861d9fc570eb356441e862cb35013a4d8333b946c0c39fa21",
     "https://deno.land/x/emit@0.40.0/_utils.ts": "98412edc7aa29e77d592b54fbad00bdec1b05d0c25eb772a5f8edc9813e08d88",
     "https://deno.land/x/emit@0.40.0/emit.generated.js": "65621c730ae9e4e818a3f83913562101dc9a371befbdb44d81e09a1532af5089",
-    "https://deno.land/x/emit@0.40.0/mod.ts": "04b1818a60d6f85ca991bc4369634ea55d51388c4154b0100dfbe3c9684e2318"
+    "https://deno.land/x/emit@0.40.0/mod.ts": "04b1818a60d6f85ca991bc4369634ea55d51388c4154b0100dfbe3c9684e2318",
+    "https://esm.sh/immer@10.1.1": "2adc785c2e60dcfad934f4bc9496b75cf4f11d385d77901b546115141cd08a11",
+    "https://esm.sh/v135/immer@10.1.1/denonext/immer.mjs": "c9720da0ba7a521aa46a694a69f3a6089b4f99823890263ddce76b20d5c4a7da"
   }
 }

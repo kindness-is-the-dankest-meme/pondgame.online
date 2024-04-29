@@ -2,8 +2,5 @@
   "tasks": {
     "dev": "deno run --allow-env --allow-net --allow-read --watch src/server.ts"
   },
-  "imports": {
-    "std/": "https://deno.land/std@0.223.0/",
-    "emit": "https://deno.land/x/emit@0.40.0/mod.ts"
-  }
+  "importMap": "./importMap.json"
 }

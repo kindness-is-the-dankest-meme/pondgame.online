@@ -1,9 +1,9 @@
 import { STATUS_TEXT, type StatusCode } from "std/http/mod.ts";
 import { format, type ParsedPath, parse } from "std/path/mod.ts";
 import { bundle } from "emit";
+import { state } from "./lib/state.ts";
 
-const url = (url: string | URL, base?: string | URL | undefined): URL =>
-  new URL(url, base);
+const url = (url: string | URL): URL => new URL(url, import.meta.url);
 
 const res = (body?: BodyInit | null, init?: ResponseInit): Response =>
   new Response(body, init);
@@ -14,7 +14,7 @@ const handleUpgrade = (req: Request): Response => {
   const { socket, response } = Deno.upgradeWebSocket(req);
 
   socket.addEventListener("open", () => {
-    socket.send("Hello");
+    socket.send(JSON.stringify(state.getState(), null, 2));
   });
 
   return response;
@@ -33,6 +33,7 @@ const handleRequest = async (req: Request): Promise<Response> => {
       parsedPath.ext = ".html";
       break;
     }
+
     case "client":
     case "worker": {
       parsedPath.ext = ".ts";
@@ -42,18 +43,21 @@ const handleRequest = async (req: Request): Promise<Response> => {
 
   parsedPath.dir = ".";
   parsedPath.base = `${parsedPath.name}${parsedPath.ext}`;
+  const formatted = format(parsedPath);
 
   switch (parsedPath.ext) {
     case ".html": {
-      const { readable } = await Deno.open(
-        url(format(parsedPath), import.meta.url),
-        { read: true }
-      );
+      const { readable } = await Deno.open(url(formatted), {
+        read: true,
+      });
 
       return res(readable);
     }
+
     case ".ts": {
-      const { code } = await bundle(url(format(parsedPath), import.meta.url));
+      const { code } = await bundle(url(formatted), {
+        importMap: url("../importMap.json"),
+      });
       return res(code, {
         headers: {
           "Content-Type": "text/javascript",
