@@ -58,6 +58,7 @@ const handleRequest = async (req: Request): Promise<Response> => {
       const { code } = await bundle(url(formatted), {
         importMap: url("../importMap.json"),
       });
+
       return res(code, {
         headers: {
           "Content-Type": "text/javascript",
