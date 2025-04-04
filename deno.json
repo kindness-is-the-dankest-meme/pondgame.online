@@ -2,5 +2,9 @@
   "tasks": {
     "dev": "deno run --allow-env --allow-net --allow-read --watch src/server.ts"
   },
-  "importMap": "./importMap.json"
+  "importMap": "./importMap.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
+  }
 }
