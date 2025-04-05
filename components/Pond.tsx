@@ -1,7 +1,5 @@
 import { useTiles } from "./useTiles.ts";
 
-const { round } = Math;
-
 type PondProps = {
   data: string;
   size: number;
@@ -22,7 +20,7 @@ export const Pond = ({ data, size }: PondProps) => {
       preserveAspectRatio="xMidYMid meet"
       fill="none"
       stroke="currentColor"
-      stroke-width={`${size / 4}px`}
+      stroke-width={`${size * 0.3}px`}
     >
       {rows.map((row, i) =>
         row

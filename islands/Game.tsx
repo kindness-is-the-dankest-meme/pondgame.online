@@ -36,6 +36,11 @@ export const Game = () => {
     return () => globalThis.removeEventListener("contextmenu", prevent);
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => setSize(range(20, 100)), 10_000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <>
       <Pond data={generatePond(cols, rows)} size={size} />
