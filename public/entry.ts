@@ -62,7 +62,7 @@ setInterval(
     size.value = String(rrng(smin, smax));
     size.dispatchEvent(new Event("change"));
   },
-  10_000,
+  10000,
 );
 
 globalThis.dispatchEvent(new Event("resize"));
