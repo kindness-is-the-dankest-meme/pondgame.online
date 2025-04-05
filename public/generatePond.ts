@@ -92,9 +92,9 @@ export const generatePond = (width: number, height: number): string =>
               return cels;
             }
 
-            const neighborUp = acc[i - 1]?.[j];
+            const neighborUp = acc[i - 1][j];
             const neighborRight = row[j + 1];
-            const neighborDown = rows[i + 1]?.[j];
+            const neighborDown = rows[i + 1][j];
             const neighborLeft = cels[j - 1];
 
             if (
@@ -114,10 +114,10 @@ export const generatePond = (width: number, height: number): string =>
              * because this is working top to bottom and left to right it's
              * mostly downward and rightward constraints
              */
-            const allowedUp = allowedNeighbors[neighborDown]?.up ?? "";
-            const allowedRight = allowedNeighbors[neighborLeft]?.right ?? "";
-            const allowedDown = allowedNeighbors[neighborUp]?.down ?? "";
-            const allowedLeft = allowedNeighbors[neighborRight]?.left ?? "";
+            const allowedUp = allowedNeighbors[neighborDown].up || "";
+            const allowedRight = allowedNeighbors[neighborLeft].right || "";
+            const allowedDown = allowedNeighbors[neighborUp].down || "";
+            const allowedLeft = allowedNeighbors[neighborRight].left || "";
 
             const allowed = (
               allowedUp +

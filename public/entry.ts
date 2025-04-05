@@ -30,7 +30,7 @@ const { floor, random } = Math,
       data = generatePond(cols, rows),
       rowsData = data.split("\n").filter((row) => row !== ""),
       rowCount = rowsData.length,
-      colCount = rowsData[0]?.split(" ").length ?? 0;
+      colCount = rowsData[0].split(" ").length;
 
     pond.setAttribute("viewBox", `0 0 ${colCount * size} ${rowCount * size}`);
     pond.setAttribute("stroke-width", `${size * 0.3}px`);
