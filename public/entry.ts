@@ -65,6 +65,8 @@ setInterval(
   10_000,
 );
 
+globalThis.dispatchEvent(new Event("resize"));
+
 full.addEventListener(
   "click",
   () => document.documentElement.requestFullscreen(),
