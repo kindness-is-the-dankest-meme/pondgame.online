@@ -1,13 +1,9 @@
 {
   "tasks": {
-    "dev": "deno run -ENR --allow-run --watch main.ts",
-    "build": "deno install --allow-scripts"
+    "dev": "deno run -ENR --allow-run --watch main.ts"
   },
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
   },
-  "nodeModulesDir": "auto",
-  "imports": {
-    "esbuild-wasm": "npm:esbuild-wasm@^0.25.2"
-  }
+  "nodeModulesDir": "auto"
 }
