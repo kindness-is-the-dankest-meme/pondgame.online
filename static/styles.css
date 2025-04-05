@@ -15,3 +15,30 @@ html {
     "Segoe UI Symbol",
     "Noto Color Emoji";
 }
+
+html:fullscreen div {
+  display: none;
+}
+
+html, body, main {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  background-color: hsl(100, 40%, 60%);
+  color: hsl(50, 10%, 90%);
+  margin: 0;
+}
+
+main, div {
+  display: flex;
+  place-content: center;
+  overflow: hidden;
+}
+
+div {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
