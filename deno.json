@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run -ENR --allow-run --watch main.ts"
+  },
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
+  },
+  "nodeModulesDir": "auto"
+}
