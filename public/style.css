@@ -16,6 +16,10 @@ html {
     "Noto Color Emoji";
 }
 
+html:fullscreen body {
+  cursor: none;
+}
+
 html:fullscreen div {
   display: none;
 }
