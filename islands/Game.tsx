@@ -12,12 +12,7 @@ globalThis.addEventListener(
 
 export const Game = () => {
   const [size, setSize] = useState<number>(30);
-  const [[cols, rows], setDims] = useState<[number, number]>([
-    floor(/* 1_920 */ 0 / size), // 32
-    floor(/* 1_080 */ 0 / size), // 18
-  ]);
-
-  // useEffect(() => setSize(range(20, 100)), []);
+  const [[cols, rows], setDims] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     const resetDims = () => {
