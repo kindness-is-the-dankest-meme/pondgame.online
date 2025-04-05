@@ -1,4 +1,4 @@
-import { transform } from "esbuild";
+import { transform } from "esbuild-wasm";
 
 export const compiled = (path: URL) =>
   Deno.readTextFile(path)

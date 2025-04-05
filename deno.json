@@ -8,6 +8,6 @@
   },
   "nodeModulesDir": "auto",
   "imports": {
-    "esbuild": "npm:esbuild@^0.25.2"
+    "esbuild-wasm": "npm:esbuild-wasm@^0.25.2"
   }
 }
