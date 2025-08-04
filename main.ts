@@ -1,8 +1,3 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
+import { stat } from "./server/stat.ts";
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
+Deno.serve(/* async */ (/* { url } */) => stat(501));
