@@ -1,0 +1,11 @@
+{
+  "version": "5",
+  "specifiers": {
+    "jsr:@std/http@*": "1.0.17"
+  },
+  "jsr": {
+    "@std/http@1.0.17": {
+      "integrity": "98aec8ab4080d95c21f731e3008f69c29c5012d12f1b4e553f85935db601569f"
+    }
+  }
+}
