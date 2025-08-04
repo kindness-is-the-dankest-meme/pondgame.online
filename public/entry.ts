@@ -28,11 +28,9 @@ const { floor, random } = Math,
     const { size, cols, rows } = state,
       [draw, isDrawable] = generateDraw(size),
       data = generatePond(cols, rows),
-      rowsData = data.split("\n").filter((row) => row !== ""),
-      rowCount = rowsData.length,
-      colCount = rowsData[0].split(" ").length;
+      rowsData = data.split("\n").filter((row) => row !== "");
 
-    pond.setAttribute("viewBox", `0 0 ${colCount * size} ${rowCount * size}`);
+    pond.setAttribute("viewBox", `0 0 ${cols * size} ${rows * size}`);
     pond.setAttribute("stroke-width", `${size * 0.3}px`);
 
     pond.innerHTML = rowsData.map((row, i) =>
