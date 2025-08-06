@@ -1,11 +1,15 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@std/http@*": "1.0.17"
+    "jsr:@std/http@*": "1.0.17",
+    "jsr:@std/path@*": "1.1.0"
   },
   "jsr": {
     "@std/http@1.0.17": {
       "integrity": "98aec8ab4080d95c21f731e3008f69c29c5012d12f1b4e553f85935db601569f"
+    },
+    "@std/path@1.1.0": {
+      "integrity": "ddc94f8e3c275627281cbc23341df6b8bcc874d70374f75fec2533521e3d6886"
     }
   }
 }
