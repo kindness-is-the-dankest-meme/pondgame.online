@@ -11,5 +11,14 @@
     "@std/path@1.1.0": {
       "integrity": "ddc94f8e3c275627281cbc23341df6b8bcc874d70374f75fec2533521e3d6886"
     }
+  },
+  "redirects": {
+    "https://esm.sh/@swc/wasm-web": "https://esm.sh/@swc/wasm-web@1.11.21"
+  },
+  "remote": {
+    "https://esm.sh/@swc/wasm-web@1.11.21": "91aec8a54aec0369ae9f748bf30163163ea8da42ec53b7af9074598d675f1c85",
+    "https://esm.sh/@swc/wasm-web@1.11.21/denonext/wasm-web.mjs": "d916bf5e9874b9a3b61bf5adf649b26782d737a83d21c460d7a2ede80e5fcaeb",
+    "https://esm.sh/@swc/wasm-web@1.13.3": "632b94dd300df11b98e338ffbe9bcf30266d36ead84dc7feb33618286c26f658",
+    "https://esm.sh/@swc/wasm-web@1.13.3/denonext/wasm-web.mjs": "dbe217c0cb26c7495fab6609f830665e264686cf2774f62c8eea677a69d0a867"
   }
 }

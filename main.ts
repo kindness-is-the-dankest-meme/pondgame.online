@@ -5,6 +5,7 @@ import { mapf } from "./server/mapf.ts";
 import { Exts, type } from "./server/mime.ts";
 import { open } from "./server/open.ts";
 import { stat } from "./server/stat.ts";
+import { tsfm } from "./server/tsfm.ts";
 import { walk } from "./server/walk.ts";
 
 const fs = await Array.fromAsync(walk("public", Deno.mainModule));
@@ -21,6 +22,12 @@ Deno.serve(async ({ url }) => {
     case Exts.Html: {
       return fres(await open(furl(path, Deno.mainModule)), {
         headers: { "Content-Type": type(ext) },
+      });
+    }
+
+    case Exts.Ts: {
+      return fres(await tsfm(furl(path, Deno.mainModule)), {
+        headers: { "Content-Type": type(Exts.Js) },
       });
     }
   }

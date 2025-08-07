@@ -1,2 +1,2 @@
-export const open = (path: URL) =>
-  Deno.open(path, { read: true }).then(({ readable }) => readable);
+export const open = (url: URL) =>
+  Deno.open(url, { read: true }).then(({ readable }) => readable);
