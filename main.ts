@@ -1,8 +1,9 @@
+import { Exts } from "./server/Exts.ts";
 import { fres } from "./server/fres.ts";
 import { frmt } from "./server/frmt.ts";
 import { furl } from "./server/furl.ts";
 import { mapf } from "./server/mapf.ts";
-import { Exts, type } from "./server/mime.ts";
+import { mime } from "./server/mime.ts";
 import { open } from "./server/open.ts";
 import { stat } from "./server/stat.ts";
 import { tsfm } from "./server/tsfm.ts";
@@ -21,13 +22,13 @@ Deno.serve(async ({ url }) => {
     case Exts.Css:
     case Exts.Html: {
       return fres(await open(furl(path, Deno.mainModule)), {
-        headers: { "Content-Type": type(ext) },
+        headers: { "Content-Type": mime(ext) },
       });
     }
 
     case Exts.Ts: {
       return fres(await tsfm(furl(path, Deno.mainModule)), {
-        headers: { "Content-Type": type(Exts.Js) },
+        headers: { "Content-Type": mime(Exts.Js) },
       });
     }
   }

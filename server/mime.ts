@@ -1,9 +1,4 @@
-export const Exts = {
-  Css: ".css",
-  Html: ".html",
-  Js: ".js",
-  Ts: ".ts",
-} as const;
+import { Exts } from "./Exts.ts";
 
 const MIME_TYPE = {
   [Exts.Css]: "text/css",
@@ -11,5 +6,5 @@ const MIME_TYPE = {
   [Exts.Js]: "text/javascript",
 } as const;
 
-export const type = (ext: keyof typeof MIME_TYPE) =>
+export const mime = (ext: keyof typeof MIME_TYPE) =>
   `${MIME_TYPE[ext]}; charset=utf-8`;
