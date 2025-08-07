@@ -5,6 +5,7 @@ import { furl } from "./server/furl.ts";
 import { mapf } from "./server/mapf.ts";
 import { mime } from "./server/mime.ts";
 import { open } from "./server/open.ts";
+import { prod } from "./server/prod.ts";
 import { stat } from "./server/stat.ts";
 import { tsfm } from "./server/tsfm.ts";
 import { walk } from "./server/walk.ts";
@@ -18,19 +19,26 @@ Deno.serve(async ({ url }) => {
   if (!dir.startsWith("/")) return stat(403);
   if (!fs.includes(path)) return stat(404);
 
-  switch (ext) {
-    case Exts.Css:
-    case Exts.Html: {
-      return fres(await open(furl(path, Deno.mainModule)), {
-        headers: { "Content-Type": mime(ext) },
-      });
-    }
+  try {
+    switch (ext) {
+      case Exts.Css:
+      case Exts.Html: {
+        return fres(await open(furl(path, Deno.mainModule)), {
+          headers: { "Content-Type": mime(ext) },
+        });
+      }
 
-    case Exts.Ts: {
-      return fres(await tsfm(furl(path, Deno.mainModule)), {
-        headers: { "Content-Type": mime(Exts.Js) },
-      });
+      case Exts.Ts: {
+        return fres(await tsfm(furl(path, Deno.mainModule)), {
+          headers: { "Content-Type": mime(Exts.Js) },
+        });
+      }
     }
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e));
+    console.error(error);
+
+    return prod ? stat(500) : stat(404);
   }
 
   return stat(501);

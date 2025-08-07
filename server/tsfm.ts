@@ -2,8 +2,8 @@ import initSwc, {
   type Options,
   transform,
 } from "https://esm.sh/@swc/wasm-web@1.13.3";
+import { prod } from "./prod.ts";
 
-const prod = Deno.env.has("DENO_DEPLOYMENT_ID");
 const opts: Options = {
   envName: prod ? "production" : "development",
   jsc: {
