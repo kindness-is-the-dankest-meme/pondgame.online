@@ -3,4 +3,5 @@ export const Exts = {
   Html: ".html",
   Js: ".js",
   Ts: ".ts",
+  Tsx: ".tsx",
 } as const;
