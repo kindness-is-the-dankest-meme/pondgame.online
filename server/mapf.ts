@@ -1,15 +1,18 @@
+import { Exts } from "./Exts.ts";
+import { frmt } from "./frmt.ts";
 import { prse } from "./prse.ts";
 
-export const mapf = (path: string) => {
+export const mapf = (path: string, fs: string[]) => {
   const parsed = prse(path),
     { dir } = parsed;
   let { ext, name } = parsed;
 
   if (ext === ".js") {
-    ext = ".ts";
+    if (fs.includes(frmt(dir, name, Exts.Ts))) ext = ".ts";
+    if (fs.includes(frmt(dir, name, Exts.Tsx))) ext = ".tsx";
   }
 
-  if (name === "") {
+  if (name === "" && ext === "") {
     ext = ".html";
     name = "index";
   }
