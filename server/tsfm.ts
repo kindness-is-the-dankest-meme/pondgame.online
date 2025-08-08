@@ -19,16 +19,31 @@ const opts: Options = {
       mangle: prod,
       module: true,
     },
+    transform: {
+      react: {
+        runtime: "automatic",
+        importSource: "https://esm.sh/react",
+        development: !prod,
+        useBuiltins: true,
+      },
+    },
   },
   module: {
     type: "es6",
   },
   minify: false,
   isModule: true,
-};
+} as const;
 
 await initSwc();
+
+/**
+ * replace the trailing `ts` or `tsx` with `js` for any "double-quoted" string
+ * matches that start with `.` and end with `ts` or `tsx`
+ */
+const rsfx = (code: string) => code.replace(/"(\..*)\.tsx?"/g, '"$1.js"');
+
 export const tsfm = (url: URL) =>
   Deno.readTextFile(url)
     .then((code) => transform(code, opts))
-    .then(({ code }) => code);
+    .then(({ code }) => rsfx(code));
