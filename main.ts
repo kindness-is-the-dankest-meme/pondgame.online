@@ -13,8 +13,8 @@ import { walk } from "./server/walk.ts";
 const fs = await Array.fromAsync(walk("public", Deno.mainModule));
 
 Deno.serve(async ({ url }) => {
-  const { dir, ext, name } = mapf(url),
-    path = frmt({ dir, name, ext });
+  const { dir, ext, name } = mapf(url, fs),
+    path = frmt(dir, name, ext);
 
   if (!dir.startsWith("/")) return stat(403);
   if (!fs.includes(path)) return stat(404);
@@ -28,7 +28,8 @@ Deno.serve(async ({ url }) => {
         });
       }
 
-      case Exts.Ts: {
+      case Exts.Ts:
+      case Exts.Tsx: {
         return fres(await tsfm(furl(path, Deno.mainModule)), {
           headers: { "Content-Type": mime(Exts.Js) },
         });
