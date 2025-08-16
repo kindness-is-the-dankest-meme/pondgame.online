@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run -ENR --watch main.ts"
+    "dev": "deno run -ENR --watch=public main.ts"
   },
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
