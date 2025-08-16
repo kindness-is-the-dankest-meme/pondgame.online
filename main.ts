@@ -10,14 +10,14 @@ import { stat } from "./server/stat.ts";
 import { tsfm } from "./server/tsfm.ts";
 import { walk } from "./server/walk.ts";
 
-const fs = await Array.fromAsync(walk("public", Deno.mainModule));
+const fs = new Set(await Array.fromAsync(walk("public", Deno.mainModule)));
 
 Deno.serve(async ({ url }) => {
   const { dir, ext, name } = mapf(url, fs),
     path = frmt(dir, name, ext);
 
   if (!dir.startsWith("/")) return stat(403);
-  if (!fs.includes(path)) return stat(404);
+  if (!fs.has(path)) return stat(404);
 
   try {
     switch (ext) {
