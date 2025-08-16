@@ -1,4 +1,7 @@
-import { format, join, normalize, type ParsedPath } from "jsr:@std/path";
+import { format } from "jsr:@std/path/format";
+import { join } from "jsr:@std/path/join";
+import { normalize } from "jsr:@std/path/normalize";
+import { type ParsedPath } from "jsr:@std/path/parse";
 
 export const frmt = (
   dir: ParsedPath["dir"],

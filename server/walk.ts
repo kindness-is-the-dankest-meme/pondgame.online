@@ -1,4 +1,4 @@
-import { join } from "jsr:@std/path";
+import { join } from "jsr:@std/path/join";
 import { furl } from "./furl.ts";
 
 export const walk = async function* (
