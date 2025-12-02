@@ -1,3 +1,3 @@
-import type { FC } from "https://esm.sh/react";
+import type { FC } from "react";
 
 export const App: FC = () => <>Hello.</>;

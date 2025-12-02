@@ -1,4 +1,4 @@
-import { STATUS_TEXT, type StatusCode } from "jsr:@std/http/status";
+import { STATUS_TEXT, type StatusCode } from "@std/http/status";
 import { fres } from "./fres.ts";
 
 export const stat = (code: StatusCode) =>

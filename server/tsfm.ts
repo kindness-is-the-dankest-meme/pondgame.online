@@ -1,7 +1,4 @@
-import initSwc, {
-  type Options,
-  transform,
-} from "https://esm.sh/@swc/wasm-web@1.13.3";
+import initSwc, { type Options, transform } from "@swc/wasm-web";
 import { prod } from "./prod.ts";
 
 const opts: Options = {
@@ -22,7 +19,7 @@ const opts: Options = {
     transform: {
       react: {
         runtime: "automatic",
-        importSource: "https://esm.sh/react",
+        importSource: "react",
         development: !prod,
         useBuiltins: true,
       },
