@@ -1,24 +1,101 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@std/cli@^1.0.24": "1.0.24",
+    "jsr:@std/encoding@^1.0.10": "1.0.10",
+    "jsr:@std/fmt@^1.0.8": "1.0.8",
+    "jsr:@std/fs@^1.0.20": "1.0.20",
+    "jsr:@std/html@^1.0.5": "1.0.5",
     "jsr:@std/http@*": "1.0.17",
+    "jsr:@std/http@^1.0.22": "1.0.22",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "jsr:@std/media-types@^1.1.0": "1.1.0",
+    "jsr:@std/net@^1.0.6": "1.0.6",
     "jsr:@std/path@*": "1.1.0",
-    "npm:@types/node@*": "22.14.0"
+    "jsr:@std/path@^1.1.3": "1.1.3",
+    "jsr:@std/streams@^1.0.14": "1.0.14",
+    "npm:@swc/wasm-web@^1.15.3": "1.15.3",
+    "npm:@types/node@*": "22.14.0",
+    "npm:react-dom@^19.2.0": "19.2.0_react@19.2.0",
+    "npm:react@^19.2.0": "19.2.0"
   },
   "jsr": {
+    "@std/cli@1.0.24": {
+      "integrity": "b655a5beb26aa94f98add6bc8889f5fb9bc3ee2cc3fc954e151201f4c4200a5e"
+    },
+    "@std/encoding@1.0.10": {
+      "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
+    },
+    "@std/fmt@1.0.8": {
+      "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
+    },
+    "@std/fs@1.0.20": {
+      "integrity": "e953206aae48d46ee65e8783ded459f23bec7dd1f3879512911c35e5484ea187"
+    },
+    "@std/html@1.0.5": {
+      "integrity": "4e2d693f474cae8c16a920fa5e15a3b72267b94b84667f11a50c6dd1cb18d35e"
+    },
     "@std/http@1.0.17": {
       "integrity": "98aec8ab4080d95c21f731e3008f69c29c5012d12f1b4e553f85935db601569f"
     },
+    "@std/http@1.0.22": {
+      "integrity": "53f0bb70e23a2eec3e17c4240a85bb23d185b2e20635adb37ce0f03cc4ca012a",
+      "dependencies": [
+        "jsr:@std/cli",
+        "jsr:@std/encoding",
+        "jsr:@std/fmt",
+        "jsr:@std/fs",
+        "jsr:@std/html",
+        "jsr:@std/media-types",
+        "jsr:@std/net",
+        "jsr:@std/path@^1.1.3",
+        "jsr:@std/streams"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
+    "@std/media-types@1.1.0": {
+      "integrity": "c9d093f0c05c3512932b330e3cc1fe1d627b301db33a4c2c2185c02471d6eaa4"
+    },
+    "@std/net@1.0.6": {
+      "integrity": "110735f93e95bb9feb95790a8b1d1bf69ec0dc74f3f97a00a76ea5efea25500c"
+    },
     "@std/path@1.1.0": {
       "integrity": "ddc94f8e3c275627281cbc23341df6b8bcc874d70374f75fec2533521e3d6886"
+    },
+    "@std/path@1.1.3": {
+      "integrity": "b015962d82a5e6daea980c32b82d2c40142149639968549c649031a230b1afb3",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/streams@1.0.14": {
+      "integrity": "c0df6cdd73bd4bbcbe4baa89e323b88418c90ceb2d926f95aa99bdcdbfca2411"
     }
   },
   "npm": {
+    "@swc/wasm-web@1.15.3": {
+      "integrity": "sha512-y/WEAdDCI+qPH0fupcoT1tZPjyV/1pHSmPt9PxFzopZ6WM5uM8QRv2g0fHkDh4QalopJ9dDHFTlQAq+7SEsjuQ=="
+    },
     "@types/node@22.14.0": {
       "integrity": "sha512-Kmpl+z84ILoG+3T/zQFyAJsU6EPTmOCj8/2+83fSN6djd6I4o7uOuGIH6vq3PrjY5BGitSbFuMN18j3iknubbA==",
       "dependencies": [
         "undici-types"
       ]
+    },
+    "react-dom@19.2.0_react@19.2.0": {
+      "integrity": "sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==",
+      "dependencies": [
+        "react",
+        "scheduler"
+      ]
+    },
+    "react@19.2.0": {
+      "integrity": "sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ=="
+    },
+    "scheduler@0.27.0": {
+      "integrity": "sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q=="
     },
     "undici-types@6.21.0": {
       "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="
@@ -50,5 +127,14 @@
     "https://esm.sh/react@19.1.1/jsx-runtime": "0baf62ea45676abb2a68daf420cc1ba2cc462a19be3dfa195330b1d0a37f84d7",
     "https://esm.sh/scheduler@0.26.0/denonext/scheduler.mjs": "b62267951094a7c42b7170c51e31f57198981b08ebfae60be0d076101a4c6f91",
     "https://esm.sh/scheduler@0.26.0?target=denonext": "102f3b685ea5271452bd93de89ab0d99668aecb08f7706e3b9c6629699dd92e0"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/http@^1.0.22",
+      "jsr:@std/path@^1.1.3",
+      "npm:@swc/wasm-web@^1.15.3",
+      "npm:react-dom@^19.2.0",
+      "npm:react@^19.2.0"
+    ]
   }
 }
