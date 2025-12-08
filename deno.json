@@ -6,8 +6,13 @@
     "@std/http": "jsr:@std/http@^1.0.22",
     "@std/path": "jsr:@std/path@^1.1.3",
     "@swc/wasm-web": "npm:@swc/wasm-web@^1.15.3",
+    "class-variance-authority": "npm:class-variance-authority@^0.7.1",
+    "clsx": "npm:clsx@^2.1.1",
+    "lucide-react": "npm:lucide-react@^0.555.0",
     "react": "npm:react@^19.2.0",
-    "react-dom": "npm:react-dom@^19.2.0"
+    "react-dom": "npm:react-dom@^19.2.0",
+    "tailwind-merge": "npm:tailwind-merge@^3.4.0",
+    "tw-animate-css": "npm:tw-animate-css@^1.4.0"
   },
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
