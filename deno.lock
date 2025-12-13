@@ -1,6 +1,8 @@
 {
   "version": "5",
   "specifiers": {
+    "npm:@types/react-dom@^19.2.3": "19.2.3_@types+react@19.2.7",
+    "npm:@types/react@^19.2.7": "19.2.7",
     "npm:react-dom@^19.2.3": "19.2.3_react@19.2.3",
     "npm:react@^19.2.3": "19.2.3",
     "npm:vite@^8.0.0-beta.2": "8.0.0-beta.2_picomatch@4.0.3"
@@ -114,6 +116,21 @@
       "dependencies": [
         "tslib"
       ]
+    },
+    "@types/react-dom@19.2.3_@types+react@19.2.7": {
+      "integrity": "sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==",
+      "dependencies": [
+        "@types/react"
+      ]
+    },
+    "@types/react@19.2.7": {
+      "integrity": "sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==",
+      "dependencies": [
+        "csstype"
+      ]
+    },
+    "csstype@3.2.3": {
+      "integrity": "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ=="
     },
     "detect-libc@2.1.2": {
       "integrity": "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="
@@ -293,6 +310,8 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
+        "npm:@types/react-dom@^19.2.3",
+        "npm:@types/react@^19.2.7",
         "npm:react-dom@^19.2.3",
         "npm:react@^19.2.3",
         "npm:vite@^8.0.0-beta.2"
