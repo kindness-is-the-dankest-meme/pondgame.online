@@ -19,10 +19,16 @@
     "url": "git+https://github.com/kindness-is-the-dankest-meme/pondgame.online.git"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.561.0",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "tailwind": "^4.0.0",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
