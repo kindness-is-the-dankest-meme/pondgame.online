@@ -9,7 +9,7 @@ import {
 const [{ OrthographicCamera }, { Canvas }, { StrictMode }, { createRoot }] =
   await Promise.all([
     import("@react-three/drei/core/OrthographicCamera"),
-    import("@react-three/fiber"),
+    import("@/components/Canvas.tsx"),
     import("react"),
     import("react-dom/client"),
   ]);
