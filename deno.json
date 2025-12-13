@@ -1,7 +1,11 @@
 {
   "tasks": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "nodeModulesDir": "auto",
-  "imports": {}
+  "imports": {
+    "@/": "./src/"
+  }
 }
