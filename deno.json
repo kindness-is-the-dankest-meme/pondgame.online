@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "dev": "vite"
   },
+  "nodeModulesDir": "auto",
   "imports": {}
 }
