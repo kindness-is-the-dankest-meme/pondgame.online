@@ -4,8 +4,5 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "nodeModulesDir": "auto",
-  "imports": {
-    "@std/path": "jsr:@std/path@^1.1.3"
-  }
+  "nodeModulesDir": "auto"
 }
