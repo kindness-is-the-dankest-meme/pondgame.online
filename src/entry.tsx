@@ -6,19 +6,19 @@ import {
   ItemTitle,
 } from "@/components/ui/item.tsx";
 
-const [{ OrthographicCamera }, { Canvas }, { StrictMode }, { createRoot }] =
+const [{ OrthographicCamera }, { StrictMode }, { createRoot }, { PgCanvas }] =
   await Promise.all([
     import("@react-three/drei/core/OrthographicCamera"),
-    import("@/components/Canvas.tsx"),
     import("react"),
     import("react-dom/client"),
+    import("@/components/PgCanvas.tsx"),
   ]);
 
 declare const m: HTMLElementTagNameMap["main"];
 
 createRoot(m).render(
   <StrictMode>
-    <Canvas>
+    <PgCanvas>
       <mesh>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial />
@@ -30,7 +30,7 @@ createRoot(m).render(
         near={0.1}
         far={1_000}
       />
-    </Canvas>
+    </PgCanvas>
     <Item variant="outline" className="absolute top-4 left-4 size-fit">
       <ItemContent>
         <ItemTitle>Pond Game</ItemTitle>
