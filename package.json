@@ -34,6 +34,7 @@
     "three": "^0.182.0"
   },
   "devDependencies": {
+    "@react-three/babel": "^1.0.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.7",
