@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "npm:@babel/plugin-transform-react-jsx-development@^7.27.1": "7.27.1_@babel+core@7.28.5",
     "npm:@radix-ui/react-separator@^1.1.8": "1.1.8_@types+react@19.2.7_@types+react-dom@19.2.3__@types+react@19.2.7_react@19.2.3_react-dom@19.2.3__react@19.2.3",
     "npm:@radix-ui/react-slot@^1.2.4": "1.2.4_@types+react@19.2.7_react@19.2.3",
     "npm:@react-three/drei@^10.7.7": "10.7.7_@react-three+fiber@9.4.2__react@19.2.3__react-dom@19.2.3___react@19.2.3__three@0.182.0__@types+react@19.2.7__use-sync-external-store@1.6.0___react@19.2.3_react@19.2.3_react-dom@19.2.3__react@19.2.3_three@0.182.0_@types+react@19.2.7_use-sync-external-store@1.6.0__react@19.2.3",
@@ -10,6 +11,7 @@
     "npm:@types/react-dom@^19.2.3": "19.2.3_@types+react@19.2.7",
     "npm:@types/react@^19.2.7": "19.2.7",
     "npm:@vitejs/plugin-react@^5.1.2": "5.1.2_vite@8.0.0-beta.2__picomatch@4.0.3_@babel+core@7.28.5",
+    "npm:babel-plugin-react-compiler@1": "1.0.0",
     "npm:class-variance-authority@~0.7.1": "0.7.1",
     "npm:clsx@^2.1.1": "2.1.1",
     "npm:its-fine@2": "2.0.0_react@19.2.3_@types+react@19.2.7",
@@ -204,6 +206,13 @@
         "@babel/helper-plugin-utils"
       ]
     },
+    "@babel/plugin-transform-react-jsx-development@7.27.1_@babel+core@7.28.5": {
+      "integrity": "sha512-ykDdF5yI4f1WrAolLqeF3hmYU12j9ntLQl/AOG1HAS21jxyg1Q0/J/tpREuYLfatGdGmXp/3yS0ZA76kOlVq9Q==",
+      "dependencies": [
+        "@babel/core",
+        "@babel/plugin-transform-react-jsx"
+      ]
+    },
     "@babel/plugin-transform-react-jsx-self@7.27.1_@babel+core@7.28.5": {
       "integrity": "sha512-6UzkCs+ejGdZ5mFFC/OCUrv028ab2fp1znZmCZjAOBKiBK2jXD1O+BPSfX8X2qjJ75fZBMSnQn3Rq2mrBJK2mw==",
       "dependencies": [
@@ -216,6 +225,17 @@
       "dependencies": [
         "@babel/core",
         "@babel/helper-plugin-utils"
+      ]
+    },
+    "@babel/plugin-transform-react-jsx@7.27.1_@babel+core@7.28.5": {
+      "integrity": "sha512-2KH4LWGSrJIkVf5tSiBFYuXDAoWRq2MMwgivCf+93dd0GQi8RXLjKA/0EvRnVV5G0hrHczsquXuD01L8s6dmBw==",
+      "dependencies": [
+        "@babel/core",
+        "@babel/helper-annotate-as-pure",
+        "@babel/helper-module-imports",
+        "@babel/helper-plugin-utils",
+        "@babel/plugin-syntax-jsx",
+        "@babel/types"
       ]
     },
     "@babel/plugin-transform-typescript@7.28.5_@babel+core@7.28.5": {
@@ -1046,6 +1066,12 @@
       "integrity": "sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==",
       "dependencies": [
         "possible-typed-array-names"
+      ]
+    },
+    "babel-plugin-react-compiler@1.0.0": {
+      "integrity": "sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==",
+      "dependencies": [
+        "@babel/types"
       ]
     },
     "babel-runtime@6.26.0": {
@@ -4076,6 +4102,7 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
+        "npm:@babel/plugin-transform-react-jsx-development@^7.27.1",
         "npm:@radix-ui/react-separator@^1.1.8",
         "npm:@radix-ui/react-slot@^1.2.4",
         "npm:@react-three/drei@^10.7.7",
@@ -4085,6 +4112,7 @@
         "npm:@types/react-dom@^19.2.3",
         "npm:@types/react@^19.2.7",
         "npm:@vitejs/plugin-react@^5.1.2",
+        "npm:babel-plugin-react-compiler@1",
         "npm:class-variance-authority@~0.7.1",
         "npm:clsx@^2.1.1",
         "npm:its-fine@2",
