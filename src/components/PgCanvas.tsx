@@ -2,20 +2,28 @@ import { PgBlock, type PgSetBlock } from "@/components/PgBlock.tsx";
 import { PgErrorBoundary } from "@/components/PgErrorBoundary.tsx";
 import { useBridge } from "@/hooks/useBridge.tsx";
 import { useMutableCallback } from "@/hooks/useMutableCallback.ts";
-import { type ReconcilerRoot, type RenderProps } from "@react-three/fiber";
+import {
+  createRoot,
+  events,
+  extend,
+  unmountComponentAtNode,
+  type ReconcilerRoot,
+  type RenderProps,
+} from "@react-three/fiber";
 import { FiberProvider } from "its-fine";
-import { type FC, type ReactNode } from "react";
+import {
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type FC,
+  type ReactNode,
+} from "react";
 import useMeasure from "react-use-measure";
 
-const [
-  { events, createRoot, extend, unmountComponentAtNode },
-  { Suspense, useEffect, useLayoutEffect, useRef, useState },
-  { Group, Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry },
-] = await Promise.all([
-  import("@react-three/fiber"),
-  import("react"),
-  import("@/lib/three.ts"),
-]);
+const { Group, Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry } =
+  await import("three");
 
 type PgCanvasProps = Omit<RenderProps<HTMLCanvasElement>, "size" | "events"> &
   React.HTMLAttributes<HTMLDivElement> & {
