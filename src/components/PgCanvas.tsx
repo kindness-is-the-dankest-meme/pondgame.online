@@ -1,26 +1,34 @@
-import { type ReconcilerRoot, type RenderProps } from "@react-three/fiber";
-import { type FC, type ReactNode } from "react";
-import { FiberProvider } from "its-fine";
-import useMeasure from "react-use-measure";
+import { PgBlock, type PgSetBlock } from "@/components/PgBlock.tsx";
+import { PgErrorBoundary } from "@/components/PgErrorBoundary.tsx";
 import { useBridge } from "@/hooks/useBridge.tsx";
 import { useMutableCallback } from "@/hooks/useMutableCallback.ts";
-import { PgErrorBoundary } from "@/components/PgErrorBoundary.tsx";
-import { PgBlock, type PgSetBlock } from "@/components/PgBlock.tsx";
+import { type ReconcilerRoot, type RenderProps } from "@react-three/fiber";
+import { FiberProvider } from "its-fine";
+import { type FC, type ReactNode } from "react";
+import useMeasure from "react-use-measure";
 
 const [
   { events, createRoot, extend, unmountComponentAtNode },
-  { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState },
+  { Suspense, useEffect, useLayoutEffect, useRef, useState },
   { Group, Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry },
 ] = await Promise.all([
   import("@react-three/fiber"),
   import("react"),
-  import("three"),
+  import("@/lib/three.ts"),
 ]);
 
 type PgCanvasProps = Omit<RenderProps<HTMLCanvasElement>, "size" | "events"> &
   React.HTMLAttributes<HTMLDivElement> & {
     children?: ReactNode;
   };
+
+extend({
+  Group,
+  Mesh,
+  MeshBasicMaterial,
+  OrthographicCamera,
+  PlaneGeometry,
+});
 
 const PgCanvasImpl: FC<PgCanvasProps> = ({
   children,
@@ -40,18 +48,6 @@ const PgCanvasImpl: FC<PgCanvasProps> = ({
   onCreated,
   ...props
 }) => {
-  useMemo(
-    () =>
-      extend({
-        Group,
-        Mesh,
-        MeshBasicMaterial,
-        OrthographicCamera,
-        PlaneGeometry,
-      }),
-    []
-  );
-
   const Bridge = useBridge();
 
   const [containerRef, containerRect] = useMeasure({

@@ -6,13 +6,19 @@ import {
   ItemTitle,
 } from "@/components/ui/item.tsx";
 
-const [{ OrthographicCamera }, { StrictMode }, { createRoot }, { PgCanvas }] =
-  await Promise.all([
-    import("@react-three/drei/core/OrthographicCamera"),
-    import("react"),
-    import("react-dom/client"),
-    import("@/components/PgCanvas.tsx"),
-  ]);
+const [
+  { OrthographicCamera },
+  // { Canvas },
+  { StrictMode },
+  { createRoot },
+  { PgCanvas },
+] = await Promise.all([
+  import("@react-three/drei/core/OrthographicCamera"),
+  // import("@react-three/fiber"),
+  import("react"),
+  import("react-dom/client"),
+  import("@/components/PgCanvas.tsx"),
+]);
 
 declare const m: HTMLElementTagNameMap["main"];
 
