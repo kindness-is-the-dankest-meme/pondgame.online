@@ -4,11 +4,14 @@ import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      "@": resolve("./src"),
-    },
-  },
+export default defineConfig(({ command }) => {
+  const plugins = [["babel-plugin-react-compiler", {}]];
+  if (command === "serve") {
+    plugins.push(["@babel/plugin-transform-react-jsx-development", {}]);
+  }
+
+  return {
+    plugins: [react({ babel: { plugins } }), tailwindcss()],
+    resolve: { alias: { "@": resolve("./src") } },
+  };
 });
