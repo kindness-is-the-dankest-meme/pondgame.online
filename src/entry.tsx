@@ -1,3 +1,4 @@
+import { PgCanvas } from "@/components/PgCanvas.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import {
   Item,
@@ -5,10 +6,9 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item.tsx";
-import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
+import { OrthographicCamera } from "@react-three/drei";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { PgCanvas } from "@/components/PgCanvas.tsx";
 
 declare const m: HTMLElementTagNameMap["main"];
 
