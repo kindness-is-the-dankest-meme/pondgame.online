@@ -18,6 +18,7 @@ import {
   useRef,
   useState,
   type FC,
+  type HTMLAttributes,
   type ReactNode,
 } from "react";
 import useMeasure from "react-use-measure";
@@ -26,7 +27,7 @@ const { Group, Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry } =
   await import("three");
 
 type PgCanvasProps = Omit<RenderProps<HTMLCanvasElement>, "size" | "events"> &
-  React.HTMLAttributes<HTMLDivElement> & {
+  HTMLAttributes<HTMLDivElement> & {
     children?: ReactNode;
   };
 
