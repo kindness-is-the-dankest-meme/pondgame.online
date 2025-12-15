@@ -6,7 +6,7 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item.tsx";
-import { OrthographicCamera } from "@react-three/drei";
+import { OrthographicCamera, Plane } from "@react-three/drei";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -15,10 +15,7 @@ declare const m: HTMLElementTagNameMap["main"];
 createRoot(m).render(
   <StrictMode>
     <PgCanvas>
-      <mesh>
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial />
-      </mesh>
+      <Plane args={[1, 1]} />
       <OrthographicCamera
         makeDefault
         position={[0, 0, 1_000]}
