@@ -23,8 +23,15 @@ import {
 } from "react";
 import useMeasure from "react-use-measure";
 
-const { Group, Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry } =
-  await import("three");
+const {
+  Group,
+  Mesh,
+  MeshBasicMaterial,
+  Object3D,
+  OrthographicCamera,
+  PlaneGeometry,
+  ShapeGeometry,
+} = await import("three");
 
 type PgCanvasProps = Omit<RenderProps<HTMLCanvasElement>, "size" | "events"> &
   HTMLAttributes<HTMLDivElement> & {
@@ -35,8 +42,10 @@ extend({
   Group,
   Mesh,
   MeshBasicMaterial,
+  Object3D,
   OrthographicCamera,
   PlaneGeometry,
+  ShapeGeometry,
 });
 
 const PgCanvasImpl: FC<PgCanvasProps> = ({
