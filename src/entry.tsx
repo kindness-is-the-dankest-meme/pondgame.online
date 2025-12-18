@@ -1,4 +1,4 @@
-import { PgCanvas } from "@/components/PgCanvas.tsx";
+import Tiles from "@/components/Tiles.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import {
   Item,
@@ -6,16 +6,18 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item.tsx";
-import { OrthographicCamera, Svg } from "@react-three/drei";
+import { OrthographicCamera } from "@react-three/drei";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 declare const m: HTMLElementTagNameMap["main"];
 
+const { PgCanvas } = await import("@/components/PgCanvas.tsx");
+
 createRoot(m).render(
   <StrictMode>
     <PgCanvas>
-      <Svg src="./╱.svg" scale={1 / 32} position={[-0.5, 0.5, 0]} />
+      <Tiles />
       <OrthographicCamera
         makeDefault
         position={[0, 0, 1_000]}
