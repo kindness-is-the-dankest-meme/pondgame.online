@@ -23,7 +23,7 @@ const tiles = [
 ];
 
 const Tiles: FC = () => {
-  const [tile, setTile] = useState(0);
+  const [tile, setTile] = useState(15);
 
   return (
     <Svg
