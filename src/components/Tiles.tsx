@@ -2,7 +2,7 @@ import { useState, type FC } from "react";
 import { Svg } from "@react-three/drei";
 
 const tiles = [
-  // "∙",
+  "∙",
   "▝",
   "▘",
   "▀",

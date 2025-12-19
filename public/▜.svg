@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <g>
-    <rect width="32" height="32" fill="white"></rect>
-    <path d="M 0 0 H 32 V 32 H 16 A 16 16 0 0 0 0 16 Z" fill="black"></path>
+    <rect width="32" height="32" fill="black" opacity="0"></rect>
+    <path d="M 0 0 H 32 V 32 H 16 A 16 16 0 0 0 0 16 Z" fill="white"></path>
   </g>
 </svg>

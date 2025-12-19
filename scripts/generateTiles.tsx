@@ -56,19 +56,17 @@ const paths = (s: number): [T, string][] => {
 const s = 32;
 
 Promise.all(
-  paths(s).map(
-    ([t, d]) =>
-      d &&
-      Deno.writeTextFile(
-        `${Deno.cwd()}/public/${t}.svg`,
-        renderToStaticMarkup(
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${s} ${s}`}>
-            <g>
-              <rect width={s} height={s} fill="white" />
-              <path d={d} fill="black" />
-            </g>
-          </svg>
-        )
+  paths(s).map(([t, d]) =>
+    Deno.writeTextFile(
+      `${Deno.cwd()}/public/${t}.svg`,
+      renderToStaticMarkup(
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${s} ${s}`}>
+          <g>
+            <rect width={s} height={s} fill="black" opacity="0" />
+            {d && <path d={d} fill="white" />}
+          </g>
+        </svg>
       )
+    )
   )
 ).finally(() => Deno.exit());
