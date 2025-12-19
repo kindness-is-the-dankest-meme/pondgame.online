@@ -1,5 +1,7 @@
+import { adapter } from "@domcojs/deno";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import { domco } from "domco";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
@@ -11,7 +13,11 @@ export default defineConfig(({ command }) => {
   }
 
   return {
-    plugins: [react({ babel: { plugins } }), tailwindcss()],
+    plugins: [
+      react({ babel: { plugins } }),
+      domco({ adapter: adapter() }),
+      tailwindcss(),
+    ],
     resolve: { alias: { "@": resolve("./src") } },
   };
 });
