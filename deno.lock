@@ -2,6 +2,7 @@
   "version": "5",
   "specifiers": {
     "npm:@babel/plugin-transform-react-jsx-development@^7.27.1": "7.27.1_@babel+core@7.28.5",
+    "npm:@domcojs/deno@^2.0.2": "2.0.2_vite@8.0.0-beta.3__picomatch@4.0.3",
     "npm:@radix-ui/react-separator@^1.1.8": "1.1.8_@types+react@19.2.7_@types+react-dom@19.2.3__@types+react@19.2.7_react@19.2.3_react-dom@19.2.3__react@19.2.3",
     "npm:@radix-ui/react-slot@^1.2.4": "1.2.4_@types+react@19.2.7_react@19.2.3",
     "npm:@react-three/drei@^10.7.7": "10.7.7_@react-three+fiber@9.4.2__react@19.2.3__react-dom@19.2.3___react@19.2.3__three@0.182.0__@types+react@19.2.7__use-sync-external-store@1.6.0___react@19.2.3_react@19.2.3_react-dom@19.2.3__react@19.2.3_three@0.182.0_@types+react@19.2.7_use-sync-external-store@1.6.0__react@19.2.3",
@@ -14,6 +15,7 @@
     "npm:babel-plugin-react-compiler@1": "1.0.0",
     "npm:class-variance-authority@~0.7.1": "0.7.1",
     "npm:clsx@^2.1.1": "2.1.1",
+    "npm:domco@5": "5.0.0_vite@8.0.0-beta.3__picomatch@4.0.3",
     "npm:its-fine@2": "2.0.0_react@19.2.3_@types+react@19.2.7",
     "npm:lucide-react@0.561": "0.561.0_react@19.2.3",
     "npm:react-dom@^19.2.3": "19.2.3_react@19.2.3",
@@ -310,6 +312,12 @@
     },
     "@dimforge/rapier3d-compat@0.12.0": {
       "integrity": "sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow=="
+    },
+    "@domcojs/deno@2.0.2_vite@8.0.0-beta.3__picomatch@4.0.3": {
+      "integrity": "sha512-PQzIfFENJQvr9F/ABdvWgkwNinwuObwIVq4wQjh8260NkUPIXIeTU14XZF8dwR00KEirEyyuf5Up5aN0FUP1hA==",
+      "dependencies": [
+        "domco"
+      ]
     },
     "@dotenvx/dotenvx@1.51.2_picomatch@4.0.3": {
       "integrity": "sha512-+693mNflujDZxudSEqSNGpn92QgFhJlBn9q2mDQ9yGWyHuz3hZ8B5g3EXCwdAz4DMJAI+OFCIbfEFZS+YRdrEA==",
@@ -1501,6 +1509,12 @@
     },
     "diff@8.0.2": {
       "integrity": "sha512-sSuxWU5j5SR9QQji/o2qMvqRNYRDOcBTgsJ/DeCf4iSN4gW+gNMXM7wFIP+fdXZxoNiAnHUTGjCr+TSWXdRDKg=="
+    },
+    "domco@5.0.0_vite@8.0.0-beta.3__picomatch@4.0.3": {
+      "integrity": "sha512-jnDfle/BcmlWmJCODLoj60fS1wG5PIZL5hLVmbjJaPPznhHCRuF7VGgZ0Oop+c043bIuXO1ZsqES77vzZn9pew==",
+      "dependencies": [
+        "vite"
+      ]
     },
     "dotenv@17.2.3": {
       "integrity": "sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w=="
@@ -4103,6 +4117,7 @@
     "packageJson": {
       "dependencies": [
         "npm:@babel/plugin-transform-react-jsx-development@^7.27.1",
+        "npm:@domcojs/deno@^2.0.2",
         "npm:@radix-ui/react-separator@^1.1.8",
         "npm:@radix-ui/react-slot@^1.2.4",
         "npm:@react-three/drei@^10.7.7",
@@ -4115,6 +4130,7 @@
         "npm:babel-plugin-react-compiler@1",
         "npm:class-variance-authority@~0.7.1",
         "npm:clsx@^2.1.1",
+        "npm:domco@5",
         "npm:its-fine@2",
         "npm:lucide-react@0.561",
         "npm:react-dom@^19.2.3",
