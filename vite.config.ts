@@ -18,6 +18,6 @@ export default defineConfig(({ command }) => {
       domco({ adapter: adapter() }),
       tailwindcss(),
     ],
-    resolve: { alias: { "@": resolve("./src") } },
+    resolve: { alias: { "@/": resolve("./src") } },
   };
 });
