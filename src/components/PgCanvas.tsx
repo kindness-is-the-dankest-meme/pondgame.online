@@ -33,11 +33,6 @@ const {
   ShapeGeometry,
 } = await import("three");
 
-type PgCanvasProps = Omit<RenderProps<HTMLCanvasElement>, "size" | "events"> &
-  HTMLAttributes<HTMLDivElement> & {
-    children?: ReactNode;
-  };
-
 extend({
   Group,
   Mesh,
@@ -47,6 +42,11 @@ extend({
   PlaneGeometry,
   ShapeGeometry,
 });
+
+type PgCanvasProps = Omit<RenderProps<HTMLCanvasElement>, "size" | "events"> &
+  HTMLAttributes<HTMLDivElement> & {
+    children?: ReactNode;
+  };
 
 const PgCanvasImpl: FC<PgCanvasProps> = ({
   children,
