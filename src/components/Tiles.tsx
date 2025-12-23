@@ -2,28 +2,28 @@ import { useState, type FC } from "react";
 import { Svg } from "@react-three/drei";
 
 const tiles = [
-  "0x00",
-  "0x01",
-  "0x02",
-  "0x03",
-  "0x04",
-  "0x05",
-  "0x06",
-  "0x07",
-  "0x08",
-  "0x09",
-  "0x0a",
-  "0x0b",
-  "0x0c",
-  "0x0d",
-  "0x0e",
-  "0x0f",
-  "0x15",
-  "0x1a",
+  "00",
+  "02",
+  "08",
+  "0f",
+  "20",
+  "22",
+  "3c",
+  "77",
+  "7f",
+  "80",
+  "88",
+  "c3",
+  "dd",
+  "df",
+  "f0",
+  "f7",
+  "fd",
+  "ff",
 ];
 
 const Tiles: FC = () => {
-  const [tile, setTile] = useState(15);
+  const [tile, setTile] = useState(tiles.length - 1);
 
   return (
     <Svg
