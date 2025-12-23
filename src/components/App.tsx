@@ -1,4 +1,5 @@
-import Tiles from "@/components/Tiles.tsx";
+import { PgCanvas } from "@/components/PgCanvas.tsx";
+import { Tile } from "@/components/Tile.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import {
   Item,
@@ -8,12 +9,28 @@ import {
 } from "@/components/ui/item.tsx";
 import { OrthographicCamera } from "@react-three/drei";
 import type { FC } from "react";
-import { PgCanvas } from "./PgCanvas.tsx";
 
 export const App: FC = () => (
   <>
     <PgCanvas>
-      <Tiles />
+      <Tile d={0x00} position={[-3, 1.5, 0]} />
+      <Tile d={0x02} position={[-2, 1.5, 0]} />
+      <Tile d={0x08} position={[-1, 1.5, 0]} />
+      <Tile d={0x0f} position={[0, 1.5, 0]} />
+      <Tile d={0x20} position={[1, 1.5, 0]} />
+      <Tile d={0x22} position={[2, 1.5, 0]} />
+      <Tile d={0x3c} position={[-3, 0.5, 0]} />
+      <Tile d={0x77} position={[-2, 0.5, 0]} />
+      <Tile d={0x7f} position={[-1, 0.5, 0]} />
+      <Tile d={0x80} position={[0, 0.5, 0]} />
+      <Tile d={0x88} position={[1, 0.5, 0]} />
+      <Tile d={0xc3} position={[2, 0.5, 0]} />
+      <Tile d={0xdd} position={[-3, -0.5, 0]} />
+      <Tile d={0xdf} position={[-2, -0.5, 0]} />
+      <Tile d={0xf0} position={[-1, -0.5, 0]} />
+      <Tile d={0xf7} position={[0, -0.5, 0]} />
+      <Tile d={0xfd} position={[1, -0.5, 0]} />
+      <Tile d={0xff} position={[2, -0.5, 0]} />
       <OrthographicCamera
         makeDefault
         position={[0, 0, 1_000]}
