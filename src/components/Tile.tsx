@@ -66,8 +66,8 @@ const s = 32,
   );
 
 type TileProps = Omit<SvgProps, "src" | "scale"> & {
-  ref?: RefObject<Object3D>;
   d: keyof typeof ds;
+  ref?: RefObject<Object3D>;
 };
 
 export const Tile: FC<TileProps> = ({ d, ...props }) => (
