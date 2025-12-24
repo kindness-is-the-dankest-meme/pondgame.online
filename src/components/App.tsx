@@ -8,6 +8,7 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item.tsx";
+import { hπ } from "@/lib/maths.ts";
 import { Grid, OrthographicCamera } from "@react-three/drei";
 import type { FC } from "react";
 
@@ -33,11 +34,7 @@ export const App: FC = () => (
       <Tile d={0xfd} position={[1, 0, 0]} />
       <Tile d={0xff} position={[2, 0, 0]} />
       <Pointer />
-      <Grid
-        infiniteGrid
-        position={[0, 0, 0.01]}
-        rotation={[Math.PI / 2, 0, 0]}
-      />
+      <Grid infiniteGrid position={[0, 0, 0.01]} rotation={[hπ, 0, 0]} />
       <OrthographicCamera
         makeDefault
         position={[0, 0, 1_000]}
