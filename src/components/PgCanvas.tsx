@@ -24,6 +24,7 @@ import {
 import useMeasure from "react-use-measure";
 
 const {
+  GridHelper,
   Group,
   Mesh,
   MeshBasicMaterial,
@@ -34,6 +35,7 @@ const {
 } = await import("three");
 
 extend({
+  GridHelper,
   Group,
   Mesh,
   MeshBasicMaterial,
