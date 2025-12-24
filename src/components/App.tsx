@@ -7,9 +7,8 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item.tsx";
-import { OrthographicCamera } from "@react-three/drei";
+import { Grid, OrthographicCamera } from "@react-three/drei";
 import type { FC } from "react";
-import { Color } from "three";
 
 export const App: FC = () => (
   <>
@@ -32,8 +31,8 @@ export const App: FC = () => (
       <Tile d={0xf7} position={[0, 0, 0]} />
       <Tile d={0xfd} position={[1, 0, 0]} />
       <Tile d={0xff} position={[2, 0, 0]} />
-      <gridHelper
-        args={[10, 10, "cyan", "cyan"]}
+      <Grid
+        infiniteGrid
         position={[0, 0, 0.01]}
         rotation={[Math.PI / 2, 0, 0]}
       />
