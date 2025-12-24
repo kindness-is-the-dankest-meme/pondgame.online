@@ -1,70 +1,73 @@
 import type { FC } from "react";
 import { Svg, type SvgProps } from "@react-three/drei";
 
-const s = 32;
+const s = 32,
+  ds = (() => {
+    const h = s / 2,
+      a = (x: number, y: number, f: 0 | 1 = 1) =>
+        `A ${h} ${h} 0 0 ${f} ${x} ${y}`,
+      mh = (x: number, y: number, h: number) => `M ${x} ${y} H ${h}`,
+      mv = (x: number, y: number, v: number) => `M ${x} ${y} V ${v}`,
+      nw = `${mh(0, 0, h)} ${a(0, h)}`,
+      ne = `${mv(s, 0, h)} ${a(h, 0)}`,
+      se = `${mh(s, s, h)} ${a(s, h)}`,
+      sw = `${mv(0, s, h)} ${a(h, s)}`;
 
-const ds = (() => {
-  const h = s / 2,
-    a = (x: number, y: number, f: 0 | 1 = 1) =>
-      `A ${h} ${h} 0 0 ${f} ${x} ${y}`,
-    mh = (x: number, y: number, h: number) => `M ${x} ${y} H ${h}`,
-    mv = (x: number, y: number, v: number) => `M ${x} ${y} V ${v}`,
-    nw = `${mh(0, 0, h)} ${a(0, h)}`,
-    ne = `${mv(s, 0, h)} ${a(h, 0)}`,
-    se = `${mh(s, s, h)} ${a(s, h)}`,
-    sw = `${mv(0, s, h)} ${a(h, s)}`;
-
-  return {
-    // ∙ | 0b00000000
-    0x00: "",
-    // ▖ | 0b00000010
-    0x02: `${sw} Z`,
-    // ▗ | 0b00001000
-    0x08: `${se} Z`,
-    // ▄ | 0b00001111
-    0x0f: `${mv(s, h, s)} H 0 V ${h} Z`,
-    // ▝ | 0b00100000
-    0x20: `${ne} Z`,
-    // ▞ | 0b00100010
-    0x22: `${ne} Z ${sw} Z`,
-    // ▐ | 0b00111100
-    0x3c: `${mh(h, 0, s)} V ${s} H ${h} Z`,
-    // ╱ | 0b01110111
-    0x77: `${mv(s, 0, h)} ${a(h, s, 0)} H 0 V ${h} ${a(h, 0, 0)} Z`,
-    // ▟ | 0b01111111
-    0x7f: `${mv(s, 0, s)} H 0 V ${h} ${a(h, 0, 0)} Z`,
-    // ▘ | 0b10000000
-    0x80: `${nw} Z`,
-    // ▚ | 0b10001000
-    0x88: `${nw} Z ${se} Z`,
-    // ▌ | 0b11000011
-    0xc3: `${mh(0, 0, h)} V ${s} H 0 Z`,
-    // ╲ | 0b11011101
-    0xdd: `${mh(0, 0, h)} ${a(s, h, 0)} V ${s} H ${h} ${a(0, h, 0)} Z`,
-    // ▙ | 0b11011111
-    0xdf: `${mh(s, s, 0)} V 0 H ${h} ${a(s, h, 0)} Z`,
-    // ▀ | 0b11110000
-    0xf0: `${mh(0, 0, s)} V ${h} H 0 Z`,
-    // ▛ | 0b11110111
-    0xf7: `${mv(0, s, 0)} H ${s} V ${h} ${a(h, s, 0)} Z`,
-    // ▜ | 0b11111101
-    0xfd: `${mh(0, 0, s)} V ${s} H ${h} ${a(0, h, 0)} Z`,
-    // █ | 0b11111111
-    0xff: `${mh(0, 0, s)} V ${s} H 0 Z`,
-  } as const;
-})();
-
-const uri = (d: (typeof ds)[keyof typeof ds]) =>
-  `data:image/svg+xml,${encodeURIComponent(
-    `<svg viewBox="0 0 ${s} ${s}"><g><rect width="${s}" height="${s}" fill="black" opacity="0" />${
-      d ? `<path d="${d}" fill="white" />` : ""
-    }</g></svg>`
-  )}`;
+    return {
+      // ∙ | 0b00000000
+      0x00: "",
+      // ▖ | 0b00000010
+      0x02: `${sw} Z`,
+      // ▗ | 0b00001000
+      0x08: `${se} Z`,
+      // ▄ | 0b00001111
+      0x0f: `${mv(s, h, s)} H 0 V ${h} Z`,
+      // ▝ | 0b00100000
+      0x20: `${ne} Z`,
+      // ▞ | 0b00100010
+      0x22: `${ne} Z ${sw} Z`,
+      // ▐ | 0b00111100
+      0x3c: `${mh(h, 0, s)} V ${s} H ${h} Z`,
+      // ╱ | 0b01110111
+      0x77: `${mv(s, 0, h)} ${a(h, s, 0)} H 0 V ${h} ${a(h, 0, 0)} Z`,
+      // ▟ | 0b01111111
+      0x7f: `${mv(s, 0, s)} H 0 V ${h} ${a(h, 0, 0)} Z`,
+      // ▘ | 0b10000000
+      0x80: `${nw} Z`,
+      // ▚ | 0b10001000
+      0x88: `${nw} Z ${se} Z`,
+      // ▌ | 0b11000011
+      0xc3: `${mh(0, 0, h)} V ${s} H 0 Z`,
+      // ╲ | 0b11011101
+      0xdd: `${mh(0, 0, h)} ${a(s, h, 0)} V ${s} H ${h} ${a(0, h, 0)} Z`,
+      // ▙ | 0b11011111
+      0xdf: `${mh(s, s, 0)} V 0 H ${h} ${a(s, h, 0)} Z`,
+      // ▀ | 0b11110000
+      0xf0: `${mh(0, 0, s)} V ${h} H 0 Z`,
+      // ▛ | 0b11110111
+      0xf7: `${mv(0, s, 0)} H ${s} V ${h} ${a(h, s, 0)} Z`,
+      // ▜ | 0b11111101
+      0xfd: `${mh(0, 0, s)} V ${s} H ${h} ${a(0, h, 0)} Z`,
+      // █ | 0b11111111
+      0xff: `${mh(0, 0, s)} V ${s} H 0 Z`,
+    } as const;
+  })(),
+  { entries, fromEntries } = Object,
+  uris = fromEntries(
+    entries(ds).map(([k, v]) => [
+      k,
+      `data:image/svg+xml,${encodeURIComponent(
+        `<svg viewBox="0 0 ${s} ${s}"><g><rect width="${s}" height="${s}" fill="black" opacity="0" />${
+          v ? `<path d="${v}" fill="white" />` : ""
+        }</g></svg>`
+      )}`,
+    ])
+  );
 
 type TileProps = Omit<SvgProps, "src" | "scale"> & {
   d: keyof typeof ds;
 };
 
 export const Tile: FC<TileProps> = ({ d, ...props }) => (
-  <Svg src={uri(ds[d])} scale={1 / s} {...props} />
+  <Svg src={uris[d]} scale={1 / s} {...props} />
 );
