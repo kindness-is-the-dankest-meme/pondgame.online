@@ -1,5 +1,6 @@
-import type { FC } from "react";
 import { Svg, type SvgProps } from "@react-three/drei";
+import type { FC, RefObject } from "react";
+import type { Object3D } from "three";
 
 const s = 32,
   ds = (() => {
@@ -65,6 +66,7 @@ const s = 32,
   );
 
 type TileProps = Omit<SvgProps, "src" | "scale"> & {
+  ref?: RefObject<Object3D>;
   d: keyof typeof ds;
 };
 

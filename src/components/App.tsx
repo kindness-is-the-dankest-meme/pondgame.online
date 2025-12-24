@@ -1,4 +1,5 @@
 import { PgCanvas } from "@/components/PgCanvas.tsx";
+import { Pointer } from "@/components/Pointer.tsx";
 import { Tile } from "@/components/Tile.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import {
@@ -30,7 +31,8 @@ export const App: FC = () => (
       <Tile d={0xf0} position={[-1, 0, 0]} />
       <Tile d={0xf7} position={[0, 0, 0]} />
       <Tile d={0xfd} position={[1, 0, 0]} />
-      <Tile d={0xff} position={[2, 0, 0]} />
+      <Tile d={0xff} position={[2, 0, 0]} fillMaterial={{ color: "yellow" }} />
+      <Pointer />
       <Grid
         infiniteGrid
         position={[0, 0, 0.01]}
