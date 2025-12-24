@@ -18,5 +18,11 @@ export const Pointer: FC = () => {
     );
   });
 
-  return <Tile ref={tileRef} d={0xff} />;
+  return (
+    <Tile
+      ref={tileRef}
+      d={0xff}
+      fillMaterial={{ color: "magenta", opacity: 0.5 }}
+    />
+  );
 };

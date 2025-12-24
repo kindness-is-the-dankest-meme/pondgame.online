@@ -31,7 +31,7 @@ export const App: FC = () => (
       <Tile d={0xf0} position={[-1, 0, 0]} />
       <Tile d={0xf7} position={[0, 0, 0]} />
       <Tile d={0xfd} position={[1, 0, 0]} />
-      <Tile d={0xff} position={[2, 0, 0]} fillMaterial={{ color: "yellow" }} />
+      <Tile d={0xff} position={[2, 0, 0]} />
       <Pointer />
       <Grid
         infiniteGrid
